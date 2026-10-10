@@ -1,6 +1,6 @@
 # Rapport QA SONEDIS
 
-Dernière vérification : 11 octobre 2026, candidat publié `4fc20d8` (workflow corrigé en attente).
+Dernière vérification : 11 octobre 2026, commit publié `63a9cad`; GitHub Actions réussi (run `38094925136`).
 
 ## Résultats automatisés
 
