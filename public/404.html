@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>SONEDIS</title>
+  </head>
+  <body>
+    <script>
+      ;(function () {
+        var base = '/sonedis'
+        var path = location.pathname.replace(base, '') || '/'
+        var redirect = path + location.search + location.hash
+        try {
+          sessionStorage.setItem('spa-redirect', redirect)
+        } catch (_) {}
+        location.replace(base + '/')
+      })()
+    </script>
+    <p>SONEDIS — <a href="/sonedis/">Retour à l’accueil</a></p>
+  </body>
+</html>
