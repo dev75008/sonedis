@@ -1,6 +1,6 @@
 # Rapport QA SONEDIS
 
-Dernière vérification : 11 octobre 2026, commit publié `63a9cad`; GitHub Actions réussi (run `38094925136`).
+Dernière vérification locale : 11 octobre 2026, changements en attente de commit et publication.
 
 ## Résultats automatisés
 
@@ -9,10 +9,11 @@ Dernière vérification : 11 octobre 2026, commit publié `63a9cad`; GitHub Acti
 | TypeScript (`tsc -b`) | Réussi |
 | ESLint | Réussi |
 | Vitest | 3 tests réussis |
-| Playwright Chromium | 4 tests réussis |
-| Playwright WebKit | 4 tests réussis |
+| Playwright Chromium | 6 tests réussis |
+| Playwright WebKit | 5 tests réussis, 1 ignoré (Web Audio absent dans le navigateur headless) |
 | axe WCAG 2.1 AA | Aucune violation détectée sur la page d’accueil avec `prefers-reduced-motion` |
 | Build Vite | Réussi; chunks initiaux découpés par route |
+| Vidéo d’introduction | MP4 H.264, 1280×720, 7,9 s, 602 ko; poster WebP 1280×720. Lecture muette, souffle Web Audio activé au clic. |
 | Firefox | Non vérifié : le navigateur Playwright installé plante au démarrage (`Target crashed`) dans cet environnement Windows |
 
 ## Mesures réelles de performance
@@ -33,6 +34,7 @@ Aucun score Lighthouse n’est communiqué : il n’a pas été mesuré sur un a
 - Pas de balayage complet de toutes les largeurs jusqu’à 1920 px.
 - Le test axe simule `prefers-reduced-motion`; une revue manuelle sur appareil n’a pas été faite.
 - Le moteur WebKit ne remplace pas un test natif sur Safari/iOS/macOS.
+- Le film passe d’une illustration originale de dunes à la photo de palmeraie SONEDIS déjà présente dans les assets. Le son est synthétisé localement via Web Audio, sans chargement réseau ni lecture forcée.
 
 ## Limites et points à valider
 

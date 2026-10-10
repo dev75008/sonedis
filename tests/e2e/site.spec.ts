@@ -32,6 +32,30 @@ test('mobile menu works and layout fits a 360px viewport', async ({ page }) => {
   expect(width).toBeLessThanOrEqual(361)
 })
 
+test('intro film has a muted video and a palm grove poster', async ({ page }) => {
+  await page.goto('./')
+  const film = page.locator('.hero-home__film')
+  await expect(film).toHaveJSProperty('muted', true)
+  await expect(film).toHaveAttribute('poster', /intro-poster\.webp$/)
+})
+
+test('wind control is only shown when Web Audio is available', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(window, 'AudioContext', { configurable: true, value: undefined })
+  })
+  await page.goto('./')
+  await expect(page.getByRole('button', { name: 'Écouter le vent' })).toHaveCount(0)
+})
+
+test('desert wind audio starts only after opt-in', async ({ page }) => {
+  await page.goto('./')
+  const supported = await page.evaluate(() => typeof window.AudioContext === 'function')
+  test.skip(!supported, 'This headless browser does not expose the Web Audio API')
+  const sound = page.getByRole('button', { name: 'Écouter le vent' })
+  await sound.click()
+  await expect(page.getByRole('button', { name: 'Couper le son' })).toHaveAttribute('aria-pressed', 'true')
+})
+
 test('home page meets the selected axe WCAG checks', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('./')
