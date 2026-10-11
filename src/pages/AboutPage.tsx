@@ -45,7 +45,7 @@ export default function AboutPage() {
             />
           </figure>
         </section>
-        <StoryRail compact />
+        <StoryRail compact omitIntro />
         <section className="values-section section-pad">
           <div className="section-heading section-heading--split">
             <div>

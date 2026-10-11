@@ -19,7 +19,7 @@ Act as an independent reviewer. Do not edit the change under review, and do not 
 
 ## SONEDIS history block regression
 
-On the home page, the standalone `.home-intro__story` title/copy and `.story-rail__intro` must not render. The history photo and silent film remain visible, and the story rail retains all three milestones, including 1965. The About page may retain its own editorial introduction. The browser test `home history has no redundant title block and retains the timeline` enforces this contract.
+On the home page, the standalone `.home-intro__story` title/copy and `.story-rail__intro` must not render. On the About page, `.story-rail__intro` must also not render, because that route already has its own editorial introduction. The home history photo and silent film remain visible, and both routes retain all three timeline milestones, including 1965. Browser tests enforce this contract on both routes.
 
 ## Approval protocol
 

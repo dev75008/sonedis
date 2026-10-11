@@ -30,6 +30,14 @@ test('home history has no redundant title block and retains the timeline', async
   await expect(page.locator('.story-panel').nth(1)).toContainText('Plusieurs générations')
 })
 
+test('about page history has no redundant rail intro and retains the timeline', async ({ page }) => {
+  await page.goto('./about')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('La datte')
+  await expect(page.locator('.story-rail__intro')).toHaveCount(0)
+  await expect(page.locator('.story-panel')).toHaveCount(3)
+  await expect(page.locator('.story-panel').first()).toContainText('1965')
+})
+
 test('contact validation gives accessible feedback', async ({ page }) => {
   await page.goto('./contact')
   await page.getByRole('button', { name: /Envoyer le message/ }).click()
