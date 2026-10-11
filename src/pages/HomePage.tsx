@@ -169,37 +169,50 @@ export default function HomePage() {
         </section>
 
         <section className="home-intro section-pad" id="histoire">
-          <div>
+          <div className="home-intro__story">
+            <svg
+              className="home-intro__arch"
+              viewBox="0 0 360 440"
+              fill="none"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M38 438V201C38 112 106 102 180 18c74 84 142 94 142 183v237" />
+              <path d="M61 438V207c0-64 51-77 119-151 68 74 119 87 119 151v231" />
+              <path d="M92 438V211c0-43 39-59 88-108 49 49 88 65 88 108v227" />
+              <path d="M180 28c-8 16-8 28 0 37 8-9 8-21 0-37Z" />
+              <path d="M180 65v18M168 76h24" />
+            </svg>
             <SectionLabel number="01">{t('about.eyebrow')}</SectionLabel>
             <h2>{t('about.title')}</h2>
+            <div className="home-intro__copy">
+              <p>{t('about.body')}</p>
+              <Link className="text-link" to={language === 'en' ? '/en/about' : '/about'}>
+                {t('about.link')} <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
           </div>
-          <div className="home-intro__copy">
-            <p>{t('about.body')}</p>
-            <Link className="text-link" to={language === 'en' ? '/en/about' : '/about'}>
-              {t('about.link')} <span aria-hidden="true">↗</span>
-            </Link>
-            <figure className="home-intro__elder">
-              <img
-                src={`${basePath}/assets/photos/ancien-biskra-1120.webp`}
-                srcSet={`${basePath}/assets/photos/ancien-biskra-640.webp 640w, ${basePath}/assets/photos/ancien-biskra-1120.webp 1120w`}
-                sizes="(max-width: 780px) calc(100vw - 2rem), 48vw"
-                alt={
-                  language === 'en'
-                    ? 'Editorial illustration of an elder in a Biskra palm grove, symbolising family heritage'
-                    : 'Illustration éditoriale d’un ancien dans une palmeraie de Biskra, symbole de transmission familiale'
-                }
-                width="1120"
-                height="630"
-                loading="lazy"
-                decoding="async"
-              />
-              <figcaption>
-                {language === 'en'
-                  ? 'A symbolic figure of heritage'
-                  : 'Une figure symbolique de la transmission'}
-              </figcaption>
-            </figure>
-          </div>
+          <figure className="home-intro__elder">
+            <img
+              src={`${basePath}/assets/photos/ancien-biskra-1120.webp`}
+              srcSet={`${basePath}/assets/photos/ancien-biskra-640.webp 640w, ${basePath}/assets/photos/ancien-biskra-1120.webp 1120w`}
+              sizes="(max-width: 780px) calc(100vw - 2rem), 48vw"
+              alt={
+                language === 'en'
+                  ? 'Editorial illustration of an elder in a Biskra palm grove, symbolising family heritage'
+                  : 'Illustration éditoriale d’un ancien dans une palmeraie de Biskra, symbole de transmission familiale'
+              }
+              width="1120"
+              height="630"
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>
+              {language === 'en'
+                ? 'A symbolic figure of heritage'
+                : 'Une figure symbolique de la transmission'}
+            </figcaption>
+          </figure>
           <figure className="home-intro__visual">
             <img
               src={`${basePath}/assets/photos/histoire-palmeraie-960.webp`}
