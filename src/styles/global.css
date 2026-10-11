@@ -637,6 +637,7 @@ address {
   justify-self: center;
   place-items: center;
   overflow: hidden;
+  border-radius: clamp(1.4rem, 4.8vw, 4.5rem);
   margin: clamp(2rem, 5vw, 4.5rem) 0 0;
   background: #17261d;
 }
