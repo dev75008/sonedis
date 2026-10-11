@@ -19,23 +19,21 @@ test('navigation, language switch and route fallback', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Dates')
 })
 
-test('home history has no redundant title block and retains the timeline', async ({ page }) => {
+test('restored history introductions keep the home video and timeline', async ({ page }) => {
   await page.goto('./')
-  await expect(page.locator('#histoire .home-intro__story')).toHaveCount(0)
-  await expect(page.locator('.story-rail__intro')).toHaveCount(0)
-  await expect(page.locator('#histoire .home-intro__visual')).toBeVisible()
-  await expect(page.locator('#histoire .home-intro__film')).toBeVisible()
+  await expect(page.locator('#histoire .home-intro__story')).toBeVisible()
+  await expect(page.locator('.story-rail__intro')).toBeVisible()
   await expect(page.locator('.story-panel')).toHaveCount(3)
-  await expect(page.locator('.story-panel').first()).toContainText('1965')
-  await expect(page.locator('.story-panel').nth(1)).toContainText('Plusieurs générations')
+  const film = page.locator('#histoire .home-intro__film video')
+  await expect(film).toHaveJSProperty('muted', true)
+  await expect(film).toHaveJSProperty('loop', true)
+  await expect(film).toHaveJSProperty('autoplay', true)
 })
 
-test('about page history has no redundant rail intro and retains the timeline', async ({ page }) => {
+test('About page keeps its story rail introduction', async ({ page }) => {
   await page.goto('./about')
-  await expect(page.getByRole('heading', { level: 1 })).toContainText('La datte')
-  await expect(page.locator('.story-rail__intro')).toHaveCount(0)
+  await expect(page.locator('.story-rail__intro')).toBeVisible()
   await expect(page.locator('.story-panel')).toHaveCount(3)
-  await expect(page.locator('.story-panel').first()).toContainText('1965')
 })
 
 test('contact validation gives accessible feedback', async ({ page }) => {
@@ -70,7 +68,10 @@ test('history keeps the still photo and centers the silent film as a circular bu
     .poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth))
     .toBeGreaterThan(0)
   await expect(image).toHaveAttribute('alt', /route/i)
-  await expect(page.locator('#histoire h2')).toHaveCount(0)
+  await expect
+    .poll(() => page.locator('#histoire h2').evaluate((heading) => getComputedStyle(heading).fontFamily))
+    .toContain('Amiri')
+  await expect.poll(() => page.evaluate(() => document.fonts.check('400 32px Amiri'))).toBe(true)
   await expect.poll(() => image.evaluate((element) => getComputedStyle(element).animationName)).toBe('none')
   await expect.poll(() => image.evaluate((element) => getComputedStyle(element).transform)).toBe('none')
 

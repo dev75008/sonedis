@@ -34,10 +34,10 @@ export function ActionLink({
 
 export function StoryRail({
   compact = false,
-  omitIntro = false,
+  omitIntroBody = false,
 }: {
   compact?: boolean
-  omitIntro?: boolean
+  omitIntroBody?: boolean
 }) {
   const { t } = useTranslation()
   const rail = useRef<HTMLElement>(null)
@@ -73,17 +73,15 @@ export function StoryRail({
   ]
   return (
     <section
-      className={`story-rail${compact ? ' story-rail--compact' : ''}${omitIntro ? ' story-rail--no-intro' : ''}`}
+      className={`story-rail${compact ? ' story-rail--compact' : ''}`}
       ref={rail}
       aria-label={t('about.eyebrow')}
     >
-      {!omitIntro && (
-        <div className="story-rail__intro">
-          <SectionLabel number="01">{t('about.eyebrow')}</SectionLabel>
-          <h2>{t('about.title')}</h2>
-          <p>{t('about.body')}</p>
-        </div>
-      )}
+      <div className="story-rail__intro">
+        <SectionLabel number="01">{t('about.eyebrow')}</SectionLabel>
+        <h2>{t('about.title')}</h2>
+        {!omitIntroBody && <p>{t('about.body')}</p>}
+      </div>
       <div className="story-track" ref={track}>
         {milestones.map((item, index) => (
           <article className="story-panel" key={item.mark}>

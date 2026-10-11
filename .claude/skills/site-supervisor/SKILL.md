@@ -17,9 +17,9 @@ Act as an independent reviewer. Do not edit the change under review, and do not 
 6. Report evidence: commit under review, commands and results, routes/viewports inspected, and any limitations. Approve only when the request is visibly satisfied and no blocking regression remains. Otherwise return a concise rejection with the failing evidence and do not publish.
 7. After deployment, open the public URL with a cache-busting query in a fresh browser context. Verify the same DOM assertions and visually inspect the changed region. A successful deployment is not proof that the intended UI was deployed.
 
-## SONEDIS history block regression
+## SONEDIS history section
 
-On the home page, the standalone `.home-intro__story` title/copy and `.story-rail__intro` must not render. On the About page, `.story-rail__intro` must also not render, because that route already has its own editorial introduction. The home history photo and silent film remain visible, and both routes retain all three timeline milestones, including 1965. Browser tests enforce this contract on both routes.
+The current approved layout restores the story introductions on the home and About pages. On home, `.home-intro__story` and `.story-rail__intro` must render before the three milestone panels. The home story photo and silent looping video must remain present; the video stays muted and inline. About retains its editorial introduction and the story rail. Browser tests must check the requested route and these visible elements before publication.
 
 ## Approval protocol
 

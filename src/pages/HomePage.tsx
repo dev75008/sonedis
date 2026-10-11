@@ -156,6 +156,49 @@ export default function HomePage() {
         </section>
 
         <section className="home-intro section-pad" id="histoire">
+          <div className="home-intro__story">
+            <svg
+              className="home-intro__arcade home-intro__arcade--left"
+              viewBox="0 0 120 480"
+              preserveAspectRatio="none"
+              fill="none"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M7 8h106v464H7zM13 14h94v452H13z" />
+              <path d="M7 160h106M7 320h106M13 166h94M13 326h94" />
+              <path d="M19 157V80c0-28 24-30 41-64 17 34 41 36 41 64v77M29 157V83c0-19 19-23 31-49 12 26 31 30 31 49v74" />
+              <path d="M19 317v-77c0-28 24-30 41-64 17 34 41 36 41 64v77M29 317v-74c0-19 19-23 31-49 12 26 31 30 31 49v74" />
+              <path d="M19 477v-77c0-28 24-30 41-64 17 34 41 36 41 64v77M29 477v-74c0-19 19-23 31-49 12 26 31 30 31 49v74" />
+              <path d="M7 157h106M7 317h106M7 477h106" />
+              <path d="M19 157h10m62 0h10M19 317h10m62 0h10M19 477h10m62 0h10" />
+              <path d="M55 41c-5 6-5 12 0 17 5-5 5-11 0-17Zm0 160c-5 6-5 12 0 17 5-5 5-11 0-17Zm0 160c-5 6-5 12 0 17 5-5 5-11 0-17Z" />
+            </svg>
+            <svg
+              className="home-intro__arcade home-intro__arcade--right"
+              viewBox="0 0 120 480"
+              preserveAspectRatio="none"
+              fill="none"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M7 8h106v464H7zM13 14h94v452H13z" />
+              <path d="M7 160h106M7 320h106M13 166h94M13 326h94" />
+              <path d="M19 157V80c0-28 24-30 41-64 17 34 41 36 41 64v77M29 157V83c0-19 19-23 31-49 12 26 31 30 31 49v74" />
+              <path d="M19 317v-77c0-28 24-30 41-64 17 34 41 36 41 64v77M29 317v-74c0-19 19-23 31-49 12 26 31 30 31 49v74" />
+              <path d="M19 477v-77c0-28 24-30 41-64 17 34 41 36 41 64v77M29 477v-74c0-19 19-23 31-49 12 26 31 30 31 49v74" />
+              <path d="M7 157h106M7 317h106M7 477h106" />
+              <path d="M19 157h10m62 0h10M19 317h10m62 0h10M19 477h10m62 0h10" />
+              <path d="M55 41c-5 6-5 12 0 17 5-5 5-11 0-17Zm0 160c-5 6-5 12 0 17 5-5 5-11 0-17Zm0 160c-5 6-5 12 0 17 5-5 5-11 0-17Z" />
+            </svg>
+            <h2>{t('about.title')}</h2>
+            <div className="home-intro__copy">
+              <p>{t('about.body')}</p>
+              <Link className="text-link" to={language === 'en' ? '/en/about' : '/about'}>
+                {t('about.link')} <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
+          </div>
           <figure className="home-intro__visual">
             <img
               src={`${basePath}/assets/photos/histoire-palmeraie-960.webp`}
@@ -212,7 +255,7 @@ export default function HomePage() {
           </figure>
         </section>
 
-        <StoryRail omitIntro />
+        <StoryRail omitIntroBody />
 
         <section className="products-section section-pad" id="produits">
           <div className="section-heading section-heading--split">
