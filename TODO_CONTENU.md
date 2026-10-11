@@ -8,7 +8,6 @@
 - [ ] Valider les traductions anglaises ajoutées pour les pages et sections qui n’avaient pas de version anglaise publiée. Les formulations existantes de la page d’accueil anglaise ont servi de référence ; les propositions nouvelles sont dans `src/i18n/content.ts` et les pages anglaises.
 - [ ] Confirmer le domaine de production. Le build actuel cible `https://dev75008.github.io/sonedis/` et ne contient pas de fichier `CNAME`.
 - [ ] Confirmer que les logos de clients et de certifications peuvent être reproduits depuis les visuels déjà publiés sur l’ancien site. Leur disponibilité sur sonedis.com a été vérifiée, mais les droits individuels n’ont pas été vérifiés auprès de leurs titulaires.
-- [ ] Valider l’illustration symbolique de l’ancien de Biskra et l’interprétation de sa tenue traditionnelle avant publication définitive. Elle ne représente pas une personne identifiée de SONEDIS.
 
 ## Éléments non ajoutés faute de source vérifiée
 

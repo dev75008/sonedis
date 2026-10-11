@@ -592,7 +592,7 @@ address {
   text-align: center;
 }
 .home-intro__arcade {
-  grid-row: 1 / 4;
+  grid-row: 1 / 3;
   align-self: stretch;
   width: min(100%, 8rem);
   height: 100%;
@@ -628,10 +628,6 @@ address {
   font-size: clamp(2.5rem, 5.2vw, 5.8rem);
   text-align: center;
 }
-.home-intro__story > .section-label {
-  grid-column: 2;
-  justify-self: center;
-}
 .home-intro__copy {
   display: flex;
   grid-column: 2;
@@ -646,46 +642,6 @@ address {
 .home-intro__copy .text-link {
   margin-top: 1.5rem;
   color: var(--white);
-}
-.home-intro__elder {
-  position: relative;
-  grid-column: 1 / -1;
-  width: min(100%, 43rem);
-  aspect-ratio: 16 / 9;
-  justify-self: center;
-  margin: clamp(1.75rem, 4vw, 3rem) 0 0;
-  overflow: hidden;
-  background: #263528;
-  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.24);
-}
-.home-intro__elder::after {
-  position: absolute;
-  border: 1px solid rgba(245, 224, 190, 0.36);
-  content: '';
-  inset: 0.6rem;
-  pointer-events: none;
-}
-.home-intro__elder img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 58% center;
-}
-.home-intro__elder figcaption {
-  position: absolute;
-  z-index: 1;
-  right: 1rem;
-  bottom: 1rem;
-  left: 1rem;
-  color: rgba(255, 254, 250, 0.92);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.13em;
-  line-height: 1.4;
-  text-align: center;
-  text-shadow: 0 1px 9px rgba(0, 0, 0, 0.8);
-  text-transform: uppercase;
 }
 .home-intro__visual {
   grid-column: 1 / -1;
@@ -1925,9 +1881,6 @@ address {
     grid-template-columns: minmax(2.5rem, 1fr) minmax(0, 54ch) minmax(2.5rem, 1fr);
     column-gap: 0.65rem;
   }
-  .home-intro__elder {
-    grid-column: 1;
-  }
   .home-intro__visual {
     aspect-ratio: 1.28;
     margin-top: 1rem;
@@ -2165,7 +2118,6 @@ address {
   .home-intro__arcade {
     display: none;
   }
-  .home-intro__story > .section-label,
   .home-intro h2,
   .home-intro__copy {
     grid-column: 1;

@@ -25,8 +25,6 @@ Les images et logos embarqués ont été téléchargés depuis les URL publiques
 
 La photo de route vers la palmeraie de la section « Notre histoire » vient de l’image fournie par l’utilisateur et a été colorisée avec ImageGen en conservant la scène. Les exports WebP responsifs sont `histoire-palmeraie-480.webp`, `histoire-palmeraie-960.webp` et `histoire-palmeraie-1440.webp`.
 
-L’illustration `public/assets/photos/ancien-biskra-*.webp` a été créée avec ImageGen pour la section « La datte, une histoire de famille ». Elle représente un personnage symbolique et anonyme, et non un membre identifié de SONEDIS. Sa représentation vestimentaire est une interprétation artistique ; sa fidélité historique ou locale n’a pas été validée par un spécialiste.
-
 ## Vidéo d'introduction
 
 Une seule séquence est intégrée au montage muet `public/assets/video/intro-dates-14160251.mp4`. Le fichier source est mis en cache dans le dossier temporaire système `sonedis-pexels/` pour la régénération et n'est pas servi séparément.

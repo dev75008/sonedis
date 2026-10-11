@@ -204,7 +204,6 @@ export default function HomePage() {
               <path d="M19 157h10m62 0h10M19 317h10m62 0h10M19 477h10m62 0h10" />
               <path d="M55 41c-5 6-5 12 0 17 5-5 5-11 0-17Zm0 160c-5 6-5 12 0 17 5-5 5-11 0-17Zm0 160c-5 6-5 12 0 17 5-5 5-11 0-17Z" />
             </svg>
-            <SectionLabel number="01">{t('about.eyebrow')}</SectionLabel>
             <h2>{t('about.title')}</h2>
             <div className="home-intro__copy">
               <p>{t('about.body')}</p>
@@ -213,27 +212,6 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <figure className="home-intro__elder">
-            <img
-              src={`${basePath}/assets/photos/ancien-biskra-1120.webp`}
-              srcSet={`${basePath}/assets/photos/ancien-biskra-640.webp 640w, ${basePath}/assets/photos/ancien-biskra-1120.webp 1120w`}
-              sizes="(max-width: 780px) calc(100vw - 2rem), 48vw"
-              alt={
-                language === 'en'
-                  ? 'Editorial illustration of an elder in a Biskra palm grove, symbolising family heritage'
-                  : 'Illustration éditoriale d’un ancien dans une palmeraie de Biskra, symbole de transmission familiale'
-              }
-              width="1120"
-              height="630"
-              loading="lazy"
-              decoding="async"
-            />
-            <figcaption>
-              {language === 'en'
-                ? 'A symbolic figure of heritage'
-                : 'Une figure symbolique de la transmission'}
-            </figcaption>
-          </figure>
           <figure className="home-intro__visual">
             <img
               src={`${basePath}/assets/photos/histoire-palmeraie-960.webp`}
