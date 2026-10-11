@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
+import { useEffect, useRef, type PointerEvent as ReactPointerEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import Seo from '../components/Seo'
 import {
@@ -40,27 +40,13 @@ export default function HomePage() {
   const film = useRef<HTMLVideoElement>(null)
   const copy = useRef<HTMLDivElement>(null)
   const mdd = useRef<HTMLElement>(null)
-  const [reducedMotion, setReducedMotion] = useState(() =>
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-  )
-  useEffect(() => {
-    const preference = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const syncPreference = () => {
-      setReducedMotion(preference.matches)
-    }
-    preference.addEventListener('change', syncPreference)
-    return () => preference.removeEventListener('change', syncPreference)
-  }, [])
-
   useEffect(() => {
     const video = film.current
     if (!video) return
-    if (reducedMotion) {
-      video.pause()
-      return
-    }
+    video.defaultMuted = true
+    video.muted = true
     void video.play().catch(() => undefined)
-  }, [reducedMotion])
+  }, [])
 
   useGSAP(
     () => {
@@ -146,14 +132,16 @@ export default function HomePage() {
             <video
               ref={film}
               className="hero-home__film"
-              autoPlay={!reducedMotion}
+              autoPlay
               muted
               playsInline
-              preload={reducedMotion ? 'none' : 'auto'}
-              poster={`${basePath}/assets/video/intro-poster.webp`}
+              preload="auto"
+              width="1920"
+              height="1080"
+              poster={`${basePath}/assets/video/intro-dates-14160251.webp`}
               loop
             >
-              <source src={`${basePath}/assets/video/intro-biskra.mp4`} type="video/mp4" />
+              <source src={`${basePath}/assets/video/intro-dates-14160251.mp4`} type="video/mp4" />
             </video>
           </div>
           <a className="hero-home__scroll" href="#histoire">

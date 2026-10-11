@@ -25,11 +25,9 @@ Les images et logos embarqués ont été téléchargés depuis les URL publiques
 
 ## Vidéo d'introduction
 
-Trois séquences stock sont intégrées au montage muet `public/assets/video/intro-biskra.mp4`. Elles sont mises en cache dans le dossier temporaire système `sonedis-pexels/` pour la régénération et ne sont pas servies séparément par le site.
+Une seule séquence est intégrée au montage muet `public/assets/video/intro-dates-14160251.mp4`. Le fichier source est mis en cache dans le dossier temporaire système `sonedis-pexels/` pour la régénération et n'est pas servi séparément.
 
-- [Sand dunes in the desert in the wind — Pexels #27721174](https://www.pexels.com/video/sand-dunes-in-the-desert-in-the-wind-27721174/) — source MP4: `https://videos.pexels.com/video-files/27721174/12210758_3840_2160_30fps.mp4`.
-- [Close up of a Date Palm Tree — Pexels #14158721](https://www.pexels.com/video/close-up-of-a-date-palm-tree-14158721/) — source MP4: `https://videos.pexels.com/video-files/14158721/14158721-uhd_4096_2160_30fps.mp4`.
-- [Oasis aerial view — Pexels #17629832](https://www.pexels.com/video/oasis-aerial-view-17629832/) — So Kenobi; source 3840 × 2160, 59.94 i/s, source MP4: `https://videos.pexels.com/video-files/17629832/17629832-uhd_3840_2160_60fps.mp4`.
-- [Licence vidéo et photo gratuite Pexels](https://www.pexels.com/license/) — la licence consultée autorise le téléchargement, la modification et l'utilisation sur un site web, sans attribution obligatoire. Elle interdit notamment la revente de copies non modifiées et toute fausse approbation par les personnes ou marques visibles.
+- [Vidéo Pexels #14160251 — palmes et fruits sur ciel bleu](https://www.pexels.com/fr-fr/video/ciel-bleu-fruit-pendre-palmier-14160251/) — source vérifiée par téléchargement : H.264, 2730 × 1440, 29,97 i/s, 32 471 416 octets ; fichier source `https://videos.pexels.com/video-files/14160251/14160251-uhd_4096_2160_30fps.mp4`. Auteur non confirmé dans la page accessible.
+- [Licence Pexels](https://www.pexels.com/license/) et [explication officielle de la licence](https://help.pexels.com/hc/en-us/articles/360042295174-What-is-the-license-of-the-photos-and-videos-on-Pexels) — l'usage commercial et la modification sont permis sans attribution obligatoire, sous réserve des restrictions de la licence.
 
-Les trois clips sont des plans stock sans provenance vérifiée à Biskra ; le site ne les présente pas comme des images de Biskra. Le troisième plan montre une oasis aérienne et remplace la précédente photo fixe de palmeraie. Crédits auteurs indiqués ici à titre de traçabilité, même si la licence Pexels ne l'exige pas.
+Cette prise est la seule image vidéo du hero. L'URL fournie décrit un palmier et des fruits, mais ne confirme pas que la prise a été filmée à Biskra ; le site ne la présente donc pas comme une scène géolocalisée à Biskra.

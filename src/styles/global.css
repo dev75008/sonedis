@@ -2021,7 +2021,7 @@ address {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: 68% center;
 }
 .hero-home__scroll {
   z-index: 2;
@@ -2050,6 +2050,9 @@ address {
     height: 100%;
     margin: 0;
   }
+  .hero-home__film {
+    object-position: 72% center;
+  }
   .hero-home__scroll {
     position: absolute;
     bottom: 1.2rem;
@@ -2059,9 +2062,6 @@ address {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-home__film {
-    object-position: center;
-  }
   .hero-home__scroll span {
     animation: none;
   }

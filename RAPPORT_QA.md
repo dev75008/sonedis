@@ -9,10 +9,10 @@ Dernière vérification locale : 11 octobre 2026, changements en attente de comm
 | TypeScript (`tsc -b`) | Réussi |
 | ESLint | Réussi |
 | Vitest | 3 tests réussis |
-| Playwright Chromium + WebKit | 13 tests réussis; 1 test d’autoplay Chromium ignoré sur WebKit, dont le runtime Windows annule les requêtes de décodage MP4 |
+| Playwright Chromium + WebKit | 12 assertions réussies; 2 tests de décodage/autoplay ignorés sous WebKit Windows, qui annule le chargement MP4 |
 | axe WCAG 2.1 AA | Aucune violation détectée sur la page d’accueil avec `prefers-reduced-motion` |
 | Build Vite | Réussi; chunks initiaux découpés par route |
-| Vidéo d’introduction | H.264 High, `yuv420p`, 1280 × 720, 24 i/s, 10,5 s, 6 146 991 octets, sans piste audio; poster WebP 1280 × 720, 202 858 octets |
+| Vidéo d’introduction | H.264 High, `yuv420p`, 1920 × 1080, 24 i/s, 10,5 s, 4 657 880 octets, sans piste audio; poster WebP 1920 × 1080, 515 274 octets |
 | Firefox | Non vérifié : le navigateur Playwright installé plante au démarrage (`Target crashed`) dans cet environnement Windows |
 
 ## Mesures réelles de performance
@@ -33,9 +33,7 @@ Aucun score Lighthouse n’est communiqué : il n’a pas été mesuré sur un a
 - Pas de balayage complet de toutes les largeurs jusqu’à 1920 px.
 - Le test axe simule `prefers-reduced-motion`; une revue manuelle sur appareil n’a pas été faite.
 - Le moteur WebKit ne remplace pas un test natif sur Safari/iOS/macOS.
-- En mode animations réduites, l’autoplay est désactivé et le poster reste affiché, sans bouton superposé.
-- Chromium confirme que la vidéo commence automatiquement, boucle et reste muette. Le test axe ne détecte aucune violation sur l’accueil avec les animations réduites.
-- Le film enchaîne de vraies séquences vidéo de dunes, de palmier dattier et une vue aérienne en mouvement d’une oasis. Leur provenance n’est pas vérifiée à Biskra.
+- Le film utilise uniquement le clip Pexels #14160251 fourni dans l’échange, en lecture automatique, muette et en boucle, y compris avec `prefers-reduced-motion` selon la demande explicite. Son origine géographique n'est pas confirmée.
 
 ## Limites et points à valider
 

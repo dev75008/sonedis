@@ -11,17 +11,17 @@ Use this skill to create or revise small, responsive hero films from approved lo
 
 ## SONEDIS intro source and output
 
-- Motion footage: three downloaded source MP4s cached under the system temporary directory `sonedis-pexels`; sources and license are recorded in `LICENCES.md`.
+- Motion footage: the selected Pexels source MP4 is cached under the system temporary directory `sonedis-pexels`; its source and license are recorded in `LICENCES.md`.
 - Generator: `scripts/create-intro-film.py`.
-- Outputs: `public/assets/video/intro-biskra.mp4` and `public/assets/video/intro-poster.webp`.
-- All three shots are actual licensed Pexels video footage. The final aerial oasis shot is not verified as Biskra and must never be presented as footage from Biskra.
+- Outputs: `public/assets/video/intro-dates-14160251.mp4` and `public/assets/video/intro-dates-14160251.webp`.
+- The hero is one actual Pexels video shot of palm fruit against a blue sky. Its location is not verified as Biskra and must never be presented as footage from Biskra.
 
 ## Reproducible workflow
 
 1. Inspect source resolution, crop, contrast and context. Confirm that each image is available locally and has a recorded source. Do not infer that a photograph depicts Biskra unless the source says so.
 2. Use Python 3.10+, FFmpeg with `libx264`/`libwebp`, and `ffprobe`. Run `python scripts/create-intro-film.py` from any working directory. The script downloads/caches Pexels sources under the system temp directory `sonedis-pexels`; set `FFMPEG`/`FFPROBE` environment variables if binaries are not on `PATH`.
 3. Use temporal footage for the moving portions, with controlled crossfades and pacing that feels intentional on desktop and mobile crops. Preserve the real motion in the source. Avoid relying on a static poster or a pan/zoom over a single still to imply that an MP4 is playing.
-4. Encode H.264 High, `yuv420p`, MP4 with `+faststart`; omit audio (`-an`). Preserve quality while keeping this 10-second hero file under 8 MB and its poster visually legible.
+4. Encode H.264 High, `yuv420p`, 1080p MP4 with `+faststart`; omit audio (`-an`). Preserve quality while keeping this 10-second hero file under 5 MB and its poster visually legible.
 5. Extract the poster from a stable frame after the transition, not from the middle of a crossfade. Keep poster dimensions and crop aligned with the video.
 6. Verify with `ffprobe`: stream codec/type, dimensions, frame rate, duration, file size, and absence of audio. Open the poster and inspect representative frames at the beginning, transition, and end. If available, play in at least Chromium and WebKit.
 7. For GitHub Pages, confirm the generated assets are tracked and copied into `dist/assets/video/`; use Vite's `BASE_URL` so project sites resolve `/sonedis/assets/video/...`. Verify deployed MP4 and poster URLs return HTTP 200 with suitable `video/mp4` and `image/webp` media types.
@@ -30,7 +30,7 @@ Use this skill to create or revise small, responsive hero films from approved lo
 
 - Use `<video muted playsInline autoPlay loop>` only when the clip has a deliberate loop point. Never add autoplay audio.
 - Set a useful `poster`, `preload="metadata"` (or `none` if the film should wait), and explicit width/height or an aspect-ratio container to prevent layout shifts.
-- Respect `prefers-reduced-motion`: keep the content visible and show the poster rather than autoplaying moving imagery. Make the still state intentional and avoid adding a playback control overlay when the product asks for none.
+- Respect `prefers-reduced-motion` for decorative motion. If the owner explicitly requests automatic video playback regardless of this preference, document that override and keep the video muted, subdued, and free of flashing cuts.
 - Check for overlays, opacity/visibility animations, stacking contexts, incorrect base paths, and browser autoplay restrictions when a visitor reports a missing video.
 - Avoid claiming performance scores unless measured on the deployed page. Report any codec, browser, rights, or network limitations.
 

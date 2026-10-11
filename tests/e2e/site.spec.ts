@@ -1,6 +1,13 @@
 import { expect, test } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 
+test.afterEach(async ({ page }) => {
+  await page
+    .locator('.hero-home__film')
+    .evaluateAll((videos) => videos.forEach((video) => video.pause()))
+    .catch(() => undefined)
+})
+
 test('navigation, language switch and route fallback', async ({ page }) => {
   await page.goto('./')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('famille')
@@ -38,7 +45,9 @@ test('intro film autoplays silently in a loop with no playback button', async ({
   const film = page.locator('.hero-home__film')
   await expect(film).toHaveJSProperty('muted', true)
   await expect(film).toHaveJSProperty('loop', true)
-  await expect(film).toHaveAttribute('poster', /intro-poster\.webp$/)
+  await expect(film).toHaveJSProperty('autoplay', true)
+  await expect(film).toHaveAttribute('poster', /intro-dates-14160251\.webp$/)
+  await expect(film.locator('source')).toHaveAttribute('src', /intro-dates-14160251\.mp4$/)
   await expect(page.getByRole('button', { name: /écouter le vent/i })).toHaveCount(0)
   await expect(page.getByRole('button', { name: /lire le film/i })).toHaveCount(0)
 })
@@ -51,12 +60,13 @@ test('intro film starts playing automatically in Chromium', async ({ page, brows
   await expect.poll(() => film.evaluate((video) => video.readyState >= 2 && !video.paused)).toBe(true)
 })
 
-test('reduced motion keeps the intro on its poster with no playback button', async ({ page }) => {
+test('intro film also autoplays when reduced motion is enabled', async ({ page, browserName }) => {
+  test.skip(browserName !== 'chromium', 'The installed Windows WebKit test runtime cancels MP4 decoding.')
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('./')
   const film = page.locator('.hero-home__film')
-  await expect(film).toHaveJSProperty('paused', true)
-  await expect(film).toHaveAttribute('poster', /intro-poster\.webp$/)
+  await expect.poll(() => film.evaluate((video) => video.readyState >= 2 && !video.paused)).toBe(true)
+  await expect(film).toHaveAttribute('poster', /intro-dates-14160251\.webp$/)
   await expect(page.getByRole('button', { name: /lire le film/i })).toHaveCount(0)
 })
 
