@@ -198,7 +198,9 @@ export default function App() {
       <OrganizationSchema />
       <ScrollProgress />
       <Header />
-      <Suspense fallback={<div className="route-loading" role="status" aria-label={i18n.t("common.loading")} />}>
+      <Suspense
+        fallback={<div className="route-loading" role="status" aria-label={i18n.t('common.loading')} />}
+      >
         <PageTransition>
           <Routes>
             {pageRoutes.map(([path, Component]) => (

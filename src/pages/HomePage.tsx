@@ -178,6 +178,27 @@ export default function HomePage() {
             <Link className="text-link" to={language === 'en' ? '/en/about' : '/about'}>
               {t('about.link')} <span aria-hidden="true">↗</span>
             </Link>
+            <figure className="home-intro__elder">
+              <img
+                src={`${basePath}/assets/photos/ancien-biskra-1120.webp`}
+                srcSet={`${basePath}/assets/photos/ancien-biskra-640.webp 640w, ${basePath}/assets/photos/ancien-biskra-1120.webp 1120w`}
+                sizes="(max-width: 780px) calc(100vw - 2rem), 48vw"
+                alt={
+                  language === 'en'
+                    ? 'Editorial illustration of an elder in a Biskra palm grove, symbolising family heritage'
+                    : 'Illustration éditoriale d’un ancien dans une palmeraie de Biskra, symbole de transmission familiale'
+                }
+                width="1120"
+                height="630"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>
+                {language === 'en'
+                  ? 'A symbolic figure of heritage'
+                  : 'Une figure symbolique de la transmission'}
+              </figcaption>
+            </figure>
           </div>
           <figure className="home-intro__visual">
             <img

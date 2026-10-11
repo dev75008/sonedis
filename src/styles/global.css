@@ -595,6 +595,44 @@ address {
   margin-top: 2rem;
   color: var(--white);
 }
+.home-intro__elder {
+  position: relative;
+  width: min(100%, 43rem);
+  aspect-ratio: 16 / 9;
+  margin: clamp(1.75rem, 4vw, 3rem) 0 0;
+  overflow: hidden;
+  background: #263528;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.24);
+}
+.home-intro__elder::after {
+  position: absolute;
+  border: 1px solid rgba(245, 224, 190, 0.36);
+  content: '';
+  inset: 0.6rem;
+  pointer-events: none;
+}
+.home-intro__elder img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 58% center;
+}
+.home-intro__elder figcaption {
+  position: absolute;
+  z-index: 1;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  color: rgba(255, 254, 250, 0.92);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  line-height: 1.4;
+  text-align: center;
+  text-shadow: 0 1px 9px rgba(0, 0, 0, 0.8);
+  text-transform: uppercase;
+}
 .home-intro__visual {
   grid-column: 1 / -1;
   width: 100%;

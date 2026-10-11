@@ -31,7 +31,7 @@ export const resources = {
       about: {
         eyebrow: 'Notre histoire',
         title: 'La datte, une histoire de famille.',
-        body: 'SONEDIS est une entreprise familiale fondée en 1965 dans la région de Biskra. Depuis plusieurs générations, nous cultivons une passion pour la terre et un profond respect des savoir-faire traditionnels.',
+        body: 'À Biskra, la datte est bien plus qu’un fruit : elle porte la mémoire d’une terre et de gestes transmis. C’est là que SONEDIS est née, en 1965. Depuis plusieurs générations, notre famille avance avec la même passion pour la terre et le même respect des savoir-faire traditionnels. Dans chaque datte, un héritage se prolonge — fidèle à la terre, aux gestes et aux valeurs qui nous rassemblent.',
         link: 'Notre histoire',
         origin: 'Ancrée dans la région de Biskra',
         heritage: 'Plusieurs générations',
