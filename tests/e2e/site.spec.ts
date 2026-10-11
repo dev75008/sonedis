@@ -39,7 +39,7 @@ test('mobile menu works and layout fits a 360px viewport', async ({ page }) => {
   expect(width).toBeLessThanOrEqual(361)
 })
 
-test('history section displays the optimized color-graded grove photo', async ({ page }) => {
+test('history keeps the still photo and adds the silent color-graded grove film', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.goto('./')
   const image = page.locator('#histoire .home-intro__visual img')
@@ -54,29 +54,34 @@ test('history section displays the optimized color-graded grove photo', async ({
     .poll(() => page.locator('#histoire h2').evaluate((heading) => getComputedStyle(heading).fontFamily))
     .toContain('Amiri')
   await expect.poll(() => page.evaluate(() => document.fonts.check('400 32px Amiri'))).toBe(true)
-  await expect
-    .poll(() => image.evaluate((element) => getComputedStyle(element).animationName))
-    .toBe('history-photo-drift')
-  await expect.poll(() => image.evaluate((element) => getComputedStyle(element).animationDuration)).toBe('5s')
-  await expect
-    .poll(() =>
-      image.evaluate((element) =>
-        element.getAnimations().some((animation) => animation.playState === 'running'),
-      ),
-    )
-    .toBe(true)
-  const initialFrame = await image.evaluate((element) => getComputedStyle(element).transform)
-  await page.waitForTimeout(900)
-  const movingFrame = await image.evaluate((element) => getComputedStyle(element).transform)
-  expect(movingFrame).not.toBe(initialFrame)
+  await expect.poll(() => image.evaluate((element) => getComputedStyle(element).animationName)).toBe('none')
+  await expect.poll(() => image.evaluate((element) => getComputedStyle(element).transform)).toBe('none')
+
+  const film = page.locator('#histoire .home-intro__film video')
+  await expect(film).toHaveJSProperty('muted', true)
+  await expect(film).toHaveJSProperty('loop', true)
+  await expect(film).toHaveAttribute('preload', 'none')
+  await expect(film).toHaveAttribute('playsinline', '')
+  await expect(film).toHaveAttribute('poster', /histoire-palmeraie-poster\.webp$/)
+  await expect(film.locator('source')).toHaveAttribute('src', /histoire-palmeraie\.mp4$/)
+  await expect(film).not.toHaveAttribute('controls', '')
 })
 
-test('history photo stays still when reduced motion is requested', async ({ page }) => {
+test('history film plays automatically without audio in Chromium', async ({ page, browserName }) => {
+  test.skip(browserName !== 'chromium', 'The installed Windows WebKit test runtime can cancel MP4 decoding.')
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await page.goto('./')
+  const film = page.locator('#histoire .home-intro__film video')
+  await film.evaluate((element) => element.scrollIntoView({ block: 'center' }))
+  await expect.poll(() => film.evaluate((video) => video.readyState >= 2 && !video.paused)).toBe(true)
+})
+
+test('history film stays paused when reduced motion is requested', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('./')
-  const image = page.locator('#histoire .home-intro__visual img')
-  await image.evaluate((element) => element.scrollIntoView({ block: 'center' }))
-  await expect.poll(() => image.evaluate((element) => getComputedStyle(element).animationName)).toBe('none')
+  const film = page.locator('#histoire .home-intro__film video')
+  await film.evaluate((element) => element.scrollIntoView({ block: 'center' }))
+  await expect.poll(() => film.evaluate((video) => video.paused)).toBe(true)
 })
 
 test('intro film autoplays silently in a loop with no playback button', async ({ page }) => {

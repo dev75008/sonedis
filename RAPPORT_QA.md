@@ -1,20 +1,21 @@
 # Rapport QA SONEDIS
 
-Dernière vérification locale : 11 octobre 2026, prête à être publiée.
+Dernière vérification locale : 11 octobre 2026, avant publication.
 
 ## Résultats automatisés
 
-| Contrôle                     | Résultat                                                                                                                                                                                                                           |
-| ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| TypeScript (`tsc -b`)        | Réussi                                                                                                                                                                                                                             |
-| ESLint                       | Réussi                                                                                                                                                                                                                             |
-| Vitest                       | 3 tests réussis                                                                                                                                                                                                                    |
-| Playwright Chromium + WebKit | 16 tests réussis; 2 tests de décodage/autoplay ignorés sous WebKit Windows, qui annule le chargement MP4; tests photo confirment l’animation active, un changement de transformation, et l’état fixe avec `prefers-reduced-motion` |
-| axe WCAG 2.1 AA              | Aucune violation détectée sur la page d’accueil avec `prefers-reduced-motion`                                                                                                                                                      |
-| Build Vite                   | Réussi; chunks initiaux découpés par route                                                                                                                                                                                         |
-| Vidéo d’introduction         | H.264 High, `yuv420p`, 1920 × 1080, 24 i/s, 10,5 s, 4 657 880 octets, sans piste audio; poster WebP 1920 × 1080, 515 274 octets                                                                                                    |
-| Photo « Notre histoire »     | Image colorisée, exports WebP 480/960/1440 px : 31 254 / 118 122 / 228 272 octets; E2E vérifie l’animation de 5 s, Amiri chargée, et le mode fixe avec réduction des animations                                                    |
-| Firefox                      | Non vérifié : le navigateur Playwright installé plante au démarrage (`Target crashed`) dans cet environnement Windows                                                                                                              |
+| Contrôle                     | Résultat                                                                                                                                                                                    |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| TypeScript (`tsc -b`)        | Réussi                                                                                                                                                                                      |
+| ESLint                       | Réussi                                                                                                                                                                                      |
+| Vitest                       | 3 tests réussis                                                                                                                                                                             |
+| Playwright Chromium + WebKit | 17 tests réussis, 3 ignorés dans WebKit pour le décodage MP4; vérification de la photo fixe, du démarrage à l’approche du clip, de la pause hors écran et du réglage réduire les animations |
+| axe WCAG 2.1 AA              | Aucune violation détectée sur la page d’accueil avec `prefers-reduced-motion`                                                                                                               |
+| Build Vite                   | Réussi; chunks initiaux découpés par route                                                                                                                                                  |
+| Vidéo d’introduction         | H.264 High, `yuv420p`, 1920 × 1080, 24 i/s, 10,5 s, 4 657 880 octets, sans piste audio; poster WebP 1920 × 1080, 515 274 octets                                                             |
+| Vidéo « Notre histoire »     | H.264, `yuv420p`, 478 × 850, 24 i/s, 29,08 s, 3 347 775 octets, sans piste audio; poster WebP 72 896 octets                                                                                 |
+| Photo « Notre histoire »     | Image colorisée statique, exports WebP 480/960/1440 px : 31 254 / 118 122 / 228 272 octets; Amiri chargée dans les titres                                                                   |
+| Firefox                      | Non vérifié : le navigateur Playwright installé plante au démarrage (`Target crashed`) dans cet environnement Windows                                                                       |
 
 ## Mesures réelles de performance
 
@@ -35,7 +36,7 @@ Aucun score Lighthouse n’est communiqué : il n’a pas été mesuré sur un a
 - Le test axe simule `prefers-reduced-motion`; une revue manuelle sur appareil n’a pas été faite.
 - Le moteur WebKit ne remplace pas un test natif sur Safari/iOS/macOS.
 - Le film utilise uniquement le clip Pexels #14160251 fourni dans l’échange, en lecture automatique, muette et en boucle, y compris avec `prefers-reduced-motion` selon la demande explicite. Son origine géographique n'est pas confirmée.
-- La photo de route et de palmeraie a un travelling Ken Burns continu (zoom et déplacement latéral sur 5 s) et un reveal au défilement ; ces mouvements sont désactivés avec `prefers-reduced-motion`.
+- La photo de route et de palmeraie reste fixe. La vidéo fournie par l'utilisateur est étalonnée, muette et en boucle; elle se lance à proximité de sa section et se met en pause hors écran ou si `prefers-reduced-motion` est activé.
 - Les titres éditoriaux utilisent Amiri, police Naskh d’inspiration calligraphique arabe ; Manrope reste utilisée pour les textes courants. Les fichiers latin WOFF2 et la licence SIL OFL 1.1 sont auto-hébergés.
 
 ## Limites et points à valider

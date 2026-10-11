@@ -33,3 +33,7 @@ Une seule séquence est intégrée au montage muet `public/assets/video/intro-da
 - [Licence Pexels](https://www.pexels.com/license/) et [explication officielle de la licence](https://help.pexels.com/hc/en-us/articles/360042295174-What-is-the-license-of-the-photos-and-videos-on-Pexels) — l'usage commercial et la modification sont permis sans attribution obligatoire, sous réserve des restrictions de la licence.
 
 Cette prise est la seule image vidéo du hero. L'URL fournie décrit un palmier et des fruits, mais ne confirme pas que la prise a été filmée à Biskra ; le site ne la présente donc pas comme une scène géolocalisée à Biskra.
+
+## Vidéo de « Notre histoire » fournie par l'utilisateur
+
+Le clip local fourni dans l'échange a été étalonné légèrement vers des tons plus chauds, puis recompressé en H.264 478 × 850, 24 i/s, 29,08 s, 3 347 775 octets. La piste audio a été supprimée ; l'export n'en contient aucune. Le poster est un WebP de 72 896 octets. Le droit de reproduction de la vidéo source n'a pas été vérifié indépendamment.

@@ -38,15 +38,44 @@ export default function HomePage() {
   const hero = useRef<HTMLElement>(null)
   const title = useRef<HTMLHeadingElement>(null)
   const film = useRef<HTMLVideoElement>(null)
+  const historyFilm = useRef<HTMLVideoElement>(null)
   const copy = useRef<HTMLDivElement>(null)
   const mdd = useRef<HTMLElement>(null)
-  const history = useRef<HTMLElement>(null)
   useEffect(() => {
     const video = film.current
     if (!video) return
     video.defaultMuted = true
     video.muted = true
     void video.play().catch(() => undefined)
+  }, [])
+
+  useEffect(() => {
+    const video = historyFilm.current
+    if (!video) return
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let isNearViewport = false
+    const syncPlayback = () => {
+      if (reducedMotion.matches || !isNearViewport) {
+        video.pause()
+        return
+      }
+      video.muted = true
+      void video.play().catch(() => undefined)
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        isNearViewport = entries.some((entry) => entry.isIntersecting)
+        syncPlayback()
+      },
+      { rootMargin: '160px 0px' },
+    )
+    observer.observe(video)
+    reducedMotion.addEventListener('change', syncPlayback)
+    return () => {
+      observer.disconnect()
+      reducedMotion.removeEventListener('change', syncPlayback)
+      video.pause()
+    }
   }, [])
 
   useGSAP(
@@ -91,27 +120,6 @@ export default function HomePage() {
       return () => mm.revert()
     },
     { scope: hero },
-  )
-  useGSAP(
-    () => {
-      const frame = history.current?.querySelector<HTMLElement>('.home-intro__visual')
-      if (!frame) return
-      const mm = gsap.matchMedia()
-      mm.add('(prefers-reduced-motion: no-preference)', () => {
-        gsap.fromTo(
-          frame,
-          { clipPath: 'inset(8% 7% 8% 7%)' },
-          {
-            clipPath: 'inset(0% 0% 0% 0%)',
-            duration: motion.duration.feature,
-            ease: motion.ease.scene,
-            scrollTrigger: { trigger: frame, start: 'top 82%', once: true },
-          },
-        )
-      })
-      return () => mm.revert()
-    },
-    { scope: history },
   )
   useGSAP(
     () => {
@@ -172,7 +180,7 @@ export default function HomePage() {
           </a>
         </section>
 
-        <section className="home-intro section-pad" id="histoire" ref={history}>
+        <section className="home-intro section-pad" id="histoire">
           <div>
             <SectionLabel number="01">{t('about.eyebrow')}</SectionLabel>
             <h2>{t('about.title')}</h2>
@@ -198,6 +206,33 @@ export default function HomePage() {
               loading="lazy"
               decoding="async"
             />
+          </figure>
+          <figure className="home-intro__film">
+            <img
+              className="home-intro__film-backdrop"
+              src={`${basePath}/assets/video/histoire-palmeraie-poster.webp`}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              decoding="async"
+            />
+            <video
+              ref={historyFilm}
+              muted
+              loop
+              playsInline
+              preload="none"
+              width="478"
+              height="850"
+              poster={`${basePath}/assets/video/histoire-palmeraie-poster.webp`}
+              aria-label={
+                language === 'en'
+                  ? 'A silent film moving through a sunlit date palm grove'
+                  : 'Vidéo muette au cœur d’une palmeraie ensoleillée'
+              }
+            >
+              <source src={`${basePath}/assets/video/histoire-palmeraie.mp4`} type="video/mp4" />
+            </video>
           </figure>
         </section>
 
