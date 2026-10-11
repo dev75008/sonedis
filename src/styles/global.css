@@ -642,6 +642,40 @@ address {
   filter: blur(24px) saturate(0.82) brightness(0.55);
   transform: scale(1.08);
 }
+.home-intro__varieties {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  display: flex;
+  width: min(22%, 22rem);
+  flex-direction: column;
+  gap: clamp(0.55rem, 1.2vw, 1.15rem);
+  color: rgba(246, 223, 185, 0.9);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+.home-intro__varieties--left {
+  left: clamp(1rem, 3vw, 3rem);
+  align-items: flex-end;
+  text-align: right;
+}
+.home-intro__varieties--right {
+  right: clamp(1rem, 3vw, 3rem);
+  align-items: flex-start;
+  text-align: left;
+}
+.home-intro__varieties span {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.2vw, 2rem);
+  font-style: italic;
+  line-height: 0.95;
+  text-shadow: 0 2px 18px rgba(8, 17, 11, 0.55);
+  white-space: nowrap;
+}
+.home-intro__varieties span:nth-child(2n) {
+  color: rgba(230, 192, 137, 0.78);
+  font-size: clamp(1rem, 1.8vw, 1.65rem);
+}
 .home-intro__film video {
   position: absolute;
   inset: 0;
@@ -651,9 +685,9 @@ address {
   transform: translateX(-50%);
   z-index: 1;
   display: block;
-  width: min(72vw, 72svh, 34rem);
+  width: min(43vw, 72svh, 34rem);
   max-width: 100%;
-  height: min(72vw, 72svh, 34rem);
+  height: min(43vw, 72svh, 34rem);
   border: 1px solid rgba(249, 240, 221, 0.76);
   border-radius: 50%;
   object-fit: cover;
@@ -1797,6 +1831,34 @@ address {
   .home-intro__visual {
     aspect-ratio: 1.28;
     margin-top: 1rem;
+  }
+  .home-intro__varieties {
+    right: 0.75rem;
+    left: 0.75rem;
+    width: auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.35rem 0.5rem;
+    transform: none;
+    text-align: center;
+  }
+  .home-intro__varieties--left {
+    top: 0.8rem;
+    align-items: center;
+  }
+  .home-intro__varieties--right {
+    top: auto;
+    bottom: 0.8rem;
+    align-items: center;
+  }
+  .home-intro__varieties span,
+  .home-intro__varieties span:nth-child(2n) {
+    font-size: clamp(0.9rem, 3.6vw, 1rem);
+    line-height: 1;
+  }
+  .home-intro__film video {
+    width: min(72vw, 72svh, 34rem);
+    height: min(72vw, 72svh, 34rem);
   }
   .home-intro h2 {
     font-size: clamp(2.6rem, 10vw, 4.8rem);

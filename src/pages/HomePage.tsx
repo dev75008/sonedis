@@ -33,6 +33,9 @@ function magneticReset(event: ReactPointerEvent<HTMLAnchorElement>) {
   event.currentTarget.style.setProperty('--magnet-y', '0px')
 }
 
+const dateVarietiesLeft = ['Deglet Nour', 'Medjoul', 'Sukari', 'Ajwa', 'Barhi', 'Khalas']
+const dateVarietiesRight = ['Khadrawy', 'Zahidi', 'Halawy', 'Sayer', 'Thoory', 'Dayri']
+
 export default function HomePage() {
   const { t, i18n } = useTranslation()
   const hero = useRef<HTMLElement>(null)
@@ -201,6 +204,16 @@ export default function HomePage() {
               loading="lazy"
               decoding="async"
             />
+            <div className="home-intro__varieties home-intro__varieties--left" aria-hidden="true">
+              {dateVarietiesLeft.map((variety) => (
+                <span key={variety}>{variety}</span>
+              ))}
+            </div>
+            <div className="home-intro__varieties home-intro__varieties--right" aria-hidden="true">
+              {dateVarietiesRight.map((variety) => (
+                <span key={variety}>{variety}</span>
+              ))}
+            </div>
             <video
               ref={historyFilm}
               autoPlay

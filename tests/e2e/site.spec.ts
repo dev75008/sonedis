@@ -40,6 +40,7 @@ test('mobile menu works and layout fits a 360px viewport', async ({ page }) => {
 })
 
 test('history keeps the still photo and centers the silent film as a circular bubble', async ({ page }) => {
+  await page.setViewportSize({ width: 1024, height: 768 })
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.goto('./')
   const image = page.locator('#histoire .home-intro__visual img')
@@ -66,6 +67,9 @@ test('history keeps the still photo and centers the silent film as a circular bu
   await expect(film).toHaveAttribute('poster', /histoire-palmeraie-poster\.webp$/)
   await expect(film.locator('source')).toHaveAttribute('src', /histoire-palmeraie\.mp4$/)
   await expect(film).not.toHaveAttribute('controls', '')
+  await expect(page.locator('.home-intro__varieties--left span')).toHaveCount(6)
+  await expect(page.locator('.home-intro__varieties--right span')).toHaveCount(6)
+  await expect(page.locator('.home-intro__varieties--left')).toContainText(/Deglet Nour.*Medjoul.*Sukari/s)
   const measurePlacement = () =>
     film.evaluate((video) => {
       const videoRect = video.getBoundingClientRect()
@@ -86,13 +90,32 @@ test('history keeps the still photo and centers the silent film as a circular bu
   expect(desktopPlacement.ratio).toBeCloseTo(1, 2)
   expect(desktopPlacement.borderRadius).toBe('50%')
   expect(desktopPlacement.fitsFrame).toBe(true)
+  const desktopBubble = await film.boundingBox()
+  const leftNames = await page.locator('.home-intro__varieties--left').boundingBox()
+  const rightNames = await page.locator('.home-intro__varieties--right').boundingBox()
+  expect(desktopBubble && leftNames && leftNames.x + leftNames.width).toBeLessThanOrEqual(
+    desktopBubble!.x + 1,
+  )
+  expect(rightNames && desktopBubble && rightNames.x).toBeGreaterThanOrEqual(
+    desktopBubble.x + desktopBubble.width - 1,
+  )
 
   await page.setViewportSize({ width: 360, height: 780 })
+  await page.evaluate(() => new Promise(requestAnimationFrame))
   const mobilePlacement = await measurePlacement()
   expect(mobilePlacement.centerOffset).toBeLessThan(1)
   expect(mobilePlacement.verticalOffset).toBeLessThan(1)
   expect(mobilePlacement.ratio).toBeCloseTo(1, 2)
   expect(mobilePlacement.fitsFrame).toBe(true)
+  const mobileBubble = await film.boundingBox()
+  const mobileTopNames = await page.locator('.home-intro__varieties--left').boundingBox()
+  const mobileBottomNames = await page.locator('.home-intro__varieties--right').boundingBox()
+  expect(mobileBubble && mobileTopNames && mobileTopNames.y + mobileTopNames.height).toBeLessThanOrEqual(
+    mobileBubble!.y,
+  )
+  expect(mobileBottomNames && mobileBubble && mobileBottomNames.y).toBeGreaterThanOrEqual(
+    mobileBubble.y + mobileBubble.height,
+  )
 })
 
 test('history film plays continuously without audio in Chromium', async ({ page, browserName }) => {
