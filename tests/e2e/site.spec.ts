@@ -19,6 +19,17 @@ test('navigation, language switch and route fallback', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Dates')
 })
 
+test('home history has no redundant title block and retains the timeline', async ({ page }) => {
+  await page.goto('./')
+  await expect(page.locator('#histoire .home-intro__story')).toHaveCount(0)
+  await expect(page.locator('.story-rail__intro')).toHaveCount(0)
+  await expect(page.locator('#histoire .home-intro__visual')).toBeVisible()
+  await expect(page.locator('#histoire .home-intro__film')).toBeVisible()
+  await expect(page.locator('.story-panel')).toHaveCount(3)
+  await expect(page.locator('.story-panel').first()).toContainText('1965')
+  await expect(page.locator('.story-panel').nth(1)).toContainText('Plusieurs générations')
+})
+
 test('contact validation gives accessible feedback', async ({ page }) => {
   await page.goto('./contact')
   await page.getByRole('button', { name: /Envoyer le message/ }).click()
@@ -51,10 +62,7 @@ test('history keeps the still photo and centers the silent film as a circular bu
     .poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth))
     .toBeGreaterThan(0)
   await expect(image).toHaveAttribute('alt', /route/i)
-  await expect
-    .poll(() => page.locator('#histoire h2').evaluate((heading) => getComputedStyle(heading).fontFamily))
-    .toContain('Amiri')
-  await expect.poll(() => page.evaluate(() => document.fonts.check('400 32px Amiri'))).toBe(true)
+  await expect(page.locator('#histoire h2')).toHaveCount(0)
   await expect.poll(() => image.evaluate((element) => getComputedStyle(element).animationName)).toBe('none')
   await expect.poll(() => image.evaluate((element) => getComputedStyle(element).transform)).toBe('none')
 
