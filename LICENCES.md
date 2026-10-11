@@ -36,4 +36,4 @@ Cette prise est la seule image vidéo du hero. L'URL fournie décrit un palmier 
 
 ## Vidéo de « Notre histoire » fournie par l'utilisateur
 
-Le clip local fourni dans l'échange a été étalonné légèrement vers des tons plus chauds, puis recompressé en H.264 478 × 850, 24 i/s, 29,08 s, 3 347 775 octets. La piste audio a été supprimée ; l'export n'en contient aucune. Le poster est un WebP de 72 896 octets. Le droit de reproduction de la vidéo source n'a pas été vérifié indépendamment.
+Le clip local fourni dans l'échange a été étalonné légèrement vers des tons plus chauds, puis recompressé en H.264 478 × 850, 29,97 i/s, 29,10 s, 6 698 898 octets. La piste audio a été supprimée ; l'export n'en contient aucune. Le poster est un WebP de 87 464 octets. Le droit de reproduction de la vidéo source n'a pas été vérifié indépendamment.

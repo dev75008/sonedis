@@ -66,6 +66,18 @@ test('history keeps the still photo and adds the silent color-graded grove film'
   await expect(film).toHaveAttribute('poster', /histoire-palmeraie-poster\.webp$/)
   await expect(film.locator('source')).toHaveAttribute('src', /histoire-palmeraie\.mp4$/)
   await expect(film).not.toHaveAttribute('controls', '')
+  const placement = await film.evaluate((video) => {
+    const videoRect = video.getBoundingClientRect()
+    const frameRect = video.parentElement!.getBoundingClientRect()
+    return {
+      centerOffset: Math.abs(videoRect.left + videoRect.width / 2 - (frameRect.left + frameRect.width / 2)),
+      verticalOffset: Math.abs(videoRect.top + videoRect.height / 2 - (frameRect.top + frameRect.height / 2)),
+      ratio: videoRect.width / videoRect.height,
+    }
+  })
+  expect(placement.centerOffset).toBeLessThan(1)
+  expect(placement.verticalOffset).toBeLessThan(1)
+  expect(placement.ratio).toBeCloseTo(478 / 850, 2)
 })
 
 test('history film plays continuously without audio in Chromium', async ({ page, browserName }) => {

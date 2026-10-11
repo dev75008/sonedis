@@ -615,8 +615,10 @@ address {
   isolation: isolate;
   display: grid;
   grid-column: 1 / -1;
-  height: min(70svh, clamp(28rem, 62vw, 46rem));
+  width: 100%;
+  height: min(86svh, clamp(28rem, 74vw, 53.125rem));
   min-height: 28rem;
+  justify-self: center;
   place-items: center;
   overflow: hidden;
   margin: clamp(2rem, 5vw, 4.5rem) 0 0;
@@ -641,11 +643,18 @@ address {
   transform: scale(1.08);
 }
 .home-intro__film video {
-  position: relative;
+  position: absolute;
+  inset: 0;
+  right: auto;
+  left: 50%;
+  margin: auto;
+  transform: translateX(-50%);
   z-index: 1;
   display: block;
   width: auto;
   max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 478 / 850;
   height: 100%;
   object-fit: contain;
   background: #17261d;

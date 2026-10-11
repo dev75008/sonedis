@@ -13,7 +13,7 @@ Dernière vérification locale : 11 octobre 2026, avant publication.
 | axe WCAG 2.1 AA              | Aucune violation détectée sur la page d’accueil avec `prefers-reduced-motion`                                                                                                      |
 | Build Vite                   | Réussi; chunks initiaux découpés par route                                                                                                                                         |
 | Vidéo d’introduction         | H.264 High, `yuv420p`, 1920 × 1080, 24 i/s, 10,5 s, 4 657 880 octets, sans piste audio; poster WebP 1920 × 1080, 515 274 octets                                                    |
-| Vidéo « Notre histoire »     | H.264, `yuv420p`, 478 × 850, 24 i/s, 29,08 s, 3 347 775 octets, sans piste audio; poster WebP 72 896 octets                                                                        |
+| Vidéo « Notre histoire »     | H.264, `yuv420p`, 478 × 850, 29,97 i/s, 29,10 s, 6 698 898 octets, sans piste audio; poster WebP 87 464 octets                                                                     |
 | Photo « Notre histoire »     | Image colorisée statique, exports WebP 480/960/1440 px : 31 254 / 118 122 / 228 272 octets; Amiri chargée dans les titres                                                          |
 | Firefox                      | Non vérifié : le navigateur Playwright installé plante au démarrage (`Target crashed`) dans cet environnement Windows                                                              |
 
