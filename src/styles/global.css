@@ -665,16 +665,16 @@ address {
   text-align: left;
 }
 .home-intro__varieties span {
-  font-family: var(--font-display);
-  font-size: clamp(1.2rem, 2.2vw, 2rem);
-  font-style: italic;
-  line-height: 0.95;
+  font-family: 'Lemonada', var(--font-display);
+  font-size: clamp(2rem, 3.2vw, 3.15rem);
+  font-weight: 500;
+  line-height: 1.08;
   text-shadow: 0 2px 18px rgba(8, 17, 11, 0.55);
   white-space: nowrap;
 }
 .home-intro__varieties span:nth-child(2n) {
   color: rgba(230, 192, 137, 0.78);
-  font-size: clamp(1rem, 1.8vw, 1.65rem);
+  font-size: clamp(1.55rem, 2.5vw, 2.4rem);
 }
 .home-intro__film video {
   position: absolute;
@@ -1837,7 +1837,7 @@ address {
     left: 0.75rem;
     width: auto;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.35rem 0.5rem;
     transform: none;
     text-align: center;
@@ -1853,8 +1853,8 @@ address {
   }
   .home-intro__varieties span,
   .home-intro__varieties span:nth-child(2n) {
-    font-size: clamp(0.9rem, 3.6vw, 1rem);
-    line-height: 1;
+    font-size: clamp(1rem, 4.6vw, 1.2rem);
+    line-height: 1.1;
   }
   .home-intro__film video {
     width: min(72vw, 72svh, 34rem);

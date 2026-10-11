@@ -67,6 +67,7 @@ test('history keeps the still photo and centers the silent film as a circular bu
   await expect(film).toHaveAttribute('poster', /histoire-palmeraie-poster\.webp$/)
   await expect(film.locator('source')).toHaveAttribute('src', /histoire-palmeraie\.mp4$/)
   await expect(film).not.toHaveAttribute('controls', '')
+  await expect.poll(() => page.evaluate(() => document.fonts.check('500 36px Lemonada'))).toBe(true)
   await expect(page.locator('.home-intro__varieties--left span')).toHaveCount(6)
   await expect(page.locator('.home-intro__varieties--right span')).toHaveCount(6)
   await expect(page.locator('.home-intro__varieties--left')).toContainText(/Deglet Nour.*Medjoul.*Sukari/s)
