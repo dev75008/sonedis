@@ -2023,27 +2023,6 @@ address {
   object-fit: cover;
   object-position: center;
 }
-.hero-film__play {
-  position: absolute;
-  z-index: 3;
-  right: var(--page-gutter);
-  bottom: 1.8rem;
-  min-height: 2.8rem;
-  padding: 0.65rem 1rem;
-  border: 1px solid rgba(255, 254, 250, 0.72);
-  border-radius: var(--radius-pill);
-  color: var(--white);
-  background: rgba(24, 30, 23, 0.7);
-  font-size: var(--text-xs);
-  cursor: pointer;
-}
-.hero-film__play:hover {
-  color: var(--ink);
-  background: var(--white);
-}
-.hero-film__play:focus-visible {
-  outline-color: var(--white);
-}
 .hero-home__scroll {
   z-index: 2;
 }
@@ -2076,10 +2055,6 @@ address {
     bottom: 1.2rem;
     left: var(--page-gutter);
     margin: 0;
-  }
-  .hero-film__play {
-    right: var(--page-gutter);
-    bottom: 0.75rem;
   }
 }
 

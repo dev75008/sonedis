@@ -1,8 +1,8 @@
-"""Build a silent live-action intro from licensed Pexels clips + SONEDIS photo.
+"""Build a silent live-action intro from licensed Pexels clips.
 
 Requirements: Python 3.10+, FFmpeg with libx264/libwebp, and ffprobe.
 Run: python scripts/create-intro-film.py
-The two Pexels source MP4s are cached in the system temp directory and are
+The Pexels source MP4s are cached in the system temp directory and are
 downloaded there automatically if they are missing.
 """
 
@@ -20,12 +20,12 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "public" / "assets" / "video"
 SOURCE_DIR = Path(tempfile.gettempdir()) / "sonedis-pexels"
-PALM_PHOTO = ROOT / "public" / "assets" / "photos" / "palmeraie-1440.webp"
 FFMPEG = os.environ.get("FFMPEG", "ffmpeg")
 FFPROBE = os.environ.get("FFPROBE", "ffprobe")
 FILM = OUT / "intro-biskra.mp4"
 POSTER = OUT / "intro-poster.webp"
-MAX_VIDEO_BYTES = 4_000_000
+MAX_VIDEO_BYTES = 8_000_000
+TARGET_VIDEO_BYTES = 6_500_000
 
 SOURCES = {
     "dunes": (
@@ -37,6 +37,11 @@ SOURCES = {
         "date-palm-pexels-14158721.mp4",
         "https://videos.pexels.com/video-files/14158721/14158721-uhd_4096_2160_30fps.mp4",
         41_045_232,
+    ),
+    "oasis": (
+        "oasis-aerial-pexels-17629832.mp4",
+        "https://videos.pexels.com/video-files/17629832/17629832-uhd_3840_2160_60fps.mp4",
+        83_093_931,
     ),
 }
 
@@ -87,7 +92,7 @@ def verify() -> None:
     assert not any(stream.get("codec_type") == "audio" for stream in streams), "Intro must be silent."
     duration = float(info["format"]["duration"])
     size = int(info["format"]["size"])
-    assert 9.0 <= duration <= 10.0, f"Unexpected montage duration: {duration:.2f}s"
+    assert 10.0 <= duration <= 11.0, f"Unexpected montage duration: {duration:.2f}s"
     assert size <= MAX_VIDEO_BYTES, f"Video exceeds {MAX_VIDEO_BYTES:,} bytes: {size:,}"
     poster_info = subprocess.run(
         [FFPROBE, "-v", "error", "-show_entries", "stream=codec_name,width,height", "-of", "json", str(POSTER)],
@@ -104,35 +109,34 @@ def verify() -> None:
 def main() -> None:
     if shutil.which(FFMPEG) is None or shutil.which(FFPROBE) is None:
         raise SystemExit("FFmpeg and ffprobe must be available on PATH (or set FFMPEG/FFPROBE).")
-    if not PALM_PHOTO.exists():
-        raise SystemExit(f"Missing local SONEDIS grove photograph: {PALM_PHOTO}")
     OUT.mkdir(parents=True, exist_ok=True)
     dunes = ensure_source(*SOURCES["dunes"])
     date_palm = ensure_source(*SOURCES["date_palm"])
+    oasis = ensure_source(*SOURCES["oasis"])
 
-    # Real motion: wind-rippled dunes → date-palm fronds moving in the breeze
-    # → the local SONEDIS grove image. The stock footage is not identified as Biskra.
+    # Real motion: wind-rippled dunes → close date-palm leaves → aerial oasis.
+    # The Pexels footage is not identified as Biskra.
     run([
         FFMPEG, "-hide_banner", "-loglevel", "error", "-y",
-        "-ss", "12", "-t", "3.7", "-i", str(dunes),
-        "-ss", "6", "-t", "3.7", "-i", str(date_palm),
-        "-loop", "1", "-framerate", "24", "-t", "3.7", "-i", str(PALM_PHOTO),
+        "-ss", "12", "-t", "3.8", "-i", str(dunes),
+        "-ss", "6", "-t", "3.8", "-i", str(date_palm),
+        "-ss", "5", "-t", "4.1", "-i", str(oasis),
         "-filter_complex",
         "[0:v]scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,fps=24,"
-        "trim=duration=3.7,setpts=PTS-STARTPTS,eq=contrast=1.02:saturation=1.06:brightness=0.01[dunes];"
+        "trim=duration=3.8,setpts=PTS-STARTPTS,eq=contrast=1.02:saturation=1.06:brightness=0.01[dunes];"
         "[1:v]scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,fps=24,"
-        "trim=duration=3.7,setpts=PTS-STARTPTS,eq=contrast=1.02:saturation=1.08:brightness=0.01[palm];"
-        "[2:v]scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,"
-        "zoompan=z='min(zoom+0.00018,1.025)':d=1:x='iw/2-(iw/zoom/2)':"
-        "y='ih/2-(ih/zoom/2)':s=1280x720:fps=24,trim=duration=3.7,setpts=PTS-STARTPTS,"
-        "eq=contrast=1.02:saturation=1.06:brightness=0.01[grove];"
-        "[dunes][palm]xfade=transition=fade:duration=0.7:offset=3.0[first];"
-        "[first][grove]xfade=transition=fade:duration=0.75:offset=6.0[out]",
-        "-map", "[out]", "-an", "-c:v", "libx264", "-preset", "slow", "-crf", "24",
-        "-profile:v", "main", "-level", "3.1", "-movflags", "+faststart", "-pix_fmt", "yuv420p", str(FILM),
+        "trim=duration=3.8,setpts=PTS-STARTPTS,eq=contrast=1.02:saturation=1.08:brightness=0.01[palm];"
+        "[2:v]scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,fps=24,"
+        "trim=duration=4.1,setpts=PTS-STARTPTS,eq=contrast=1.02:saturation=1.08:brightness=0.005[oasis];"
+        "[dunes][palm]xfade=transition=fade:duration=0.6:offset=3.2[first];"
+        "[first][oasis]xfade=transition=fade:duration=0.6:offset=6.4[out]",
+        "-map", "[out]", "-an", "-c:v", "libx264", "-preset", "slow", "-crf", "21",
+        "-maxrate", "6M", "-bufsize", "12M", "-profile:v", "high", "-level", "4.0",
+        "-movflags", "+faststart", "-pix_fmt", "yuv420p", "-color_primaries", "bt709",
+        "-color_trc", "bt709", "-colorspace", "bt709", str(FILM),
     ])
-    # Capture the stable local-grove closing shot, after both live clips/fades.
-    run([FFMPEG, "-hide_banner", "-loglevel", "error", "-y", "-ss", "9.2", "-i", str(FILM), "-frames:v", "1", "-vf", "scale=1280:720", "-c:v", "libwebp", "-quality", "78", str(POSTER)])
+    # Capture a stable aerial-grove frame for instant page rendering.
+    run([FFMPEG, "-hide_banner", "-loglevel", "error", "-y", "-ss", "9.6", "-i", str(FILM), "-frames:v", "1", "-vf", "scale=1280:720", "-c:v", "libwebp", "-quality", "86", str(POSTER)])
     verify()
 
 

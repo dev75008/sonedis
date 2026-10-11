@@ -32,39 +32,32 @@ test('mobile menu works and layout fits a 360px viewport', async ({ page }) => {
   expect(width).toBeLessThanOrEqual(361)
 })
 
-test('intro film uses a muted local video and has no sound control', async ({ page }) => {
+test('intro film autoplays silently in a loop with no playback button', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.goto('./')
   const film = page.locator('.hero-home__film')
   await expect(film).toHaveJSProperty('muted', true)
-  await expect(film).toHaveJSProperty('loop', false)
+  await expect(film).toHaveJSProperty('loop', true)
   await expect(film).toHaveAttribute('poster', /intro-poster\.webp$/)
   await expect(page.getByRole('button', { name: /écouter le vent/i })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: /lire le film/i })).toHaveCount(0)
 })
 
-test('intro film autoplays in Chromium when motion is allowed', async ({ page, browserName }) => {
-  test.skip(browserName !== 'chromium', 'The installed Windows WebKit test runtime does not decode this MP4.')
+test('intro film starts playing automatically in Chromium', async ({ page, browserName }) => {
+  test.skip(browserName !== 'chromium', 'The installed Windows WebKit test runtime cancels MP4 decoding.')
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.goto('./')
   const film = page.locator('.hero-home__film')
   await expect.poll(() => film.evaluate((video) => video.readyState >= 2 && !video.paused)).toBe(true)
 })
 
-test('reduced motion keeps the intro on its poster until requested', async ({ page }) => {
+test('reduced motion keeps the intro on its poster with no playback button', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('./')
   const film = page.locator('.hero-home__film')
   await expect(film).toHaveJSProperty('paused', true)
   await expect(film).toHaveAttribute('poster', /intro-poster\.webp$/)
-  await expect(page.getByRole('button', { name: 'Lire le film d’introduction' })).toBeVisible()
-})
-
-test('reduced motion lets the visitor play the film explicitly', async ({ page, browserName }) => {
-  test.skip(browserName !== 'chromium', 'The installed Windows WebKit test runtime does not decode this MP4.')
-  await page.emulateMedia({ reducedMotion: 'reduce' })
-  await page.goto('./')
-  await page.getByRole('button', { name: 'Lire le film d’introduction' }).click()
-  await expect.poll(() => page.locator('.hero-home__film').evaluate((video) => !video.paused)).toBe(true)
+  await expect(page.getByRole('button', { name: /lire le film/i })).toHaveCount(0)
 })
 
 test('home page meets the selected axe WCAG checks', async ({ page }) => {

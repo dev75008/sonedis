@@ -43,15 +43,10 @@ export default function HomePage() {
   const [reducedMotion, setReducedMotion] = useState(() =>
     window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   )
-  const [showFilmButton, setShowFilmButton] = useState(() =>
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-  )
-
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)')
     const syncPreference = () => {
       setReducedMotion(preference.matches)
-      if (preference.matches) setShowFilmButton(true)
     }
     preference.addEventListener('change', syncPreference)
     return () => preference.removeEventListener('change', syncPreference)
@@ -64,28 +59,8 @@ export default function HomePage() {
       video.pause()
       return
     }
-    let cancelled = false
-    void video
-      .play()
-      .then(() => {
-        if (!cancelled) setShowFilmButton(false)
-      })
-      .catch(() => {
-        if (!cancelled) setShowFilmButton(true)
-      })
-    return () => {
-      cancelled = true
-    }
+    void video.play().catch(() => undefined)
   }, [reducedMotion])
-
-  const playFilmOnRequest = async () => {
-    try {
-      await film.current?.play()
-      setShowFilmButton(false)
-    } catch {
-      setShowFilmButton(true)
-    }
-  }
 
   useGSAP(
     () => {
@@ -176,17 +151,11 @@ export default function HomePage() {
               playsInline
               preload={reducedMotion ? 'none' : 'auto'}
               poster={`${basePath}/assets/video/intro-poster.webp`}
-              onEnded={() => setShowFilmButton(true)}
-              onError={() => setShowFilmButton(true)}
+              loop
             >
               <source src={`${basePath}/assets/video/intro-biskra.mp4`} type="video/mp4" />
             </video>
           </div>
-          {showFilmButton && (
-            <button className="hero-film__play" type="button" onClick={playFilmOnRequest}>
-              {t('hero.playFilm')}
-            </button>
-          )}
           <a className="hero-home__scroll" href="#histoire">
             {language === 'fr' ? 'Défiler pour découvrir' : 'Scroll to explore'}{' '}
             <span aria-hidden="true">↓</span>

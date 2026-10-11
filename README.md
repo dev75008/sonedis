@@ -31,7 +31,7 @@ npm run dev
 - Les textes anglais nouveaux sont des propositions à valider. Leur inventaire et les éléments éditoriaux à fournir sont listés dans [`TODO_CONTENU.md`](TODO_CONTENU.md).
 - Les informations produit, photos, logos et certifications proviennent des pages SONEDIS et des fichiers publics `sonedis.com/wp-content/uploads/` consultés pour l’audit.
 - Les médias sont servis localement depuis `public/assets/` : les dix photos de galerie et les photographies produit disposent de WebP responsifs ; les logos et badges sources gardent leurs proportions.
-- L’ouverture de la page d’accueil (dunes puis palmeraie) est une vidéo MP4 locale et muette. Le script `scripts/create-intro-film.py` régénère le média et son poster. Quand `prefers-reduced-motion` est activé, la page reste sur le poster et propose une lecture volontaire.
+- L’ouverture de la page d’accueil (dunes, palmier dattier, puis vue aérienne d’une oasis) est une vidéo MP4 locale, muette et lue automatiquement en boucle. Le script `scripts/create-intro-film.py` régénère le média et son poster. Avec `prefers-reduced-motion`, le poster reste affiché sans lecture ni bouton superposé.
 - Les mentions légales et la politique de confidentialité sont en attente des textes SONEDIS.
 
 ## Formulaire de contact

@@ -23,7 +23,6 @@ export const resources = {
       },
       hero: {
         label: 'Producteur de datte depuis 1965',
-        playFilm: 'Lire le film d’introduction',
         title: 'Une famille, une passion, une promesse de qualité.',
         intro:
           'Une histoire familiale au cœur de Biskra, portée par la passion de la terre et le respect des savoir-faire traditionnels.',
@@ -142,7 +141,6 @@ export const resources = {
       },
       hero: {
         label: 'Date Producers Since 1965',
-        playFilm: 'Play the introductory film',
         title: 'Family-owned, Passion-driven, Quality-guaranteed.',
         intro:
           'A family story rooted in Biskra, carried forward by a passion for the land and deep respect for traditional expertise.',
