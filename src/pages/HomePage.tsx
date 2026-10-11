@@ -2,7 +2,6 @@ import { useEffect, useRef, type PointerEvent as ReactPointerEvent } from 'react
 import { useTranslation } from 'react-i18next'
 import Seo from '../components/Seo'
 import {
-  ActionLink,
   BrandScenes,
   CertificationBadges,
   ClientMarquee,
@@ -82,7 +81,7 @@ export default function HomePage() {
           ease: motion.ease.reveal,
           stagger: motion.stagger.words,
         })
-        gsap.from('.hero-home__label, .hero-home__intro, .hero-home__cta', {
+        gsap.from('.hero-home__label, .hero-home__intro', {
           y: motion.distance.small,
           autoAlpha: 0,
           duration: motion.duration.reveal,
@@ -137,14 +136,6 @@ export default function HomePage() {
             <p className="hero-home__label">{t('hero.label')}</p>
             <h1 ref={title}>{t('hero.title')}</h1>
             <p className="hero-home__intro">{t('hero.intro')}</p>
-            <div className="hero-home__cta">
-              <ActionLink to={language === 'en' ? '/en/about' : '/about'} light>
-                {t('hero.cta')}
-              </ActionLink>
-              <span className="hero-home__caption">
-                {t('common.from')} <span aria-hidden="true">·</span> Biskra
-              </span>
-            </div>
           </div>
           <div className="hero-home__visual" aria-hidden="true">
             <video
@@ -162,10 +153,6 @@ export default function HomePage() {
               <source src={`${basePath}/assets/video/intro-dates-14160251.mp4`} type="video/mp4" />
             </video>
           </div>
-          <a className="hero-home__scroll" href="#histoire">
-            {language === 'fr' ? 'Défiler pour découvrir' : 'Scroll to explore'}{' '}
-            <span aria-hidden="true">↓</span>
-          </a>
         </section>
 
         <section className="home-intro section-pad" id="histoire">
