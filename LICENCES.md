@@ -8,7 +8,7 @@
 - **i18next, react-i18next** : MIT.
 - **Lenis** : MIT.
 - **Vite, Vitest, TypeScript, Playwright, ESLint, Prettier, Testing Library, axe-core** : MIT (sauf sous-dépendances de leur propre licence ; consulter les métadonnées des paquets verrouillées dans `package-lock.json`).
-- **Fraunces** et **Manrope** : SIL Open Font License 1.1. Fichiers latin WOFF2 auto-hébergés ; textes de licence conservés dans `public/assets/fonts/licenses/`.
+- **Amiri**, **Fraunces** et **Manrope** : SIL Open Font License 1.1. Fichiers latin WOFF2 auto-hébergés ; textes de licence conservés dans `public/assets/fonts/licenses/`. Amiri, dessinée dans le style Naskh, est utilisée pour les titres et les éléments éditoriaux ; Manrope reste la police des textes courants.
 
 ## Références GitHub consultées
 

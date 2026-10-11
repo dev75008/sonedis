@@ -1,4 +1,18 @@
 @font-face {
+  font-family: Amiri;
+  src: url('/sonedis/assets/fonts/amiri-latin-regular.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: Amiri;
+  src: url('/sonedis/assets/fonts/amiri-latin-bold.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
   font-family: Fraunces;
   src: url('/sonedis/assets/fonts/fraunces-latin.woff2') format('woff2');
   font-style: normal;
@@ -34,7 +48,7 @@
   --shadow-soft: 0 22px 70px rgba(36, 35, 34, 0.12);
   --shadow-card: 0 14px 40px rgba(26, 36, 26, 0.12);
 
-  --font-display: 'Fraunces', Georgia, serif;
+  --font-display: 'Amiri', 'Fraunces', Georgia, serif;
   --font-body: 'Manrope', Arial, sans-serif;
   --text-xs: clamp(0.69rem, 0.65rem + 0.15vw, 0.78rem);
   --text-sm: clamp(0.82rem, 0.78rem + 0.2vw, 0.94rem);

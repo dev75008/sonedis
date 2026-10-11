@@ -65,7 +65,7 @@ h2,
 .display-heading {
   font-family: var(--font-display);
   line-height: 0.98;
-  letter-spacing: -0.045em;
+  letter-spacing: -0.02em;
 }
 h2 {
   font-size: var(--text-h2);
@@ -612,16 +612,16 @@ address {
 }
 @media (prefers-reduced-motion: no-preference) {
   .home-intro__visual img {
-    animation: history-photo-drift 12s ease-in-out infinite alternate;
+    animation: history-photo-drift 5s ease-in-out infinite alternate;
     will-change: transform;
   }
 }
 @keyframes history-photo-drift {
   from {
-    transform: scale(1.045) translate3d(0, 0, 0);
+    transform: scale(1.04) translate3d(1.5%, 1%, 0);
   }
   to {
-    transform: scale(1.15) translate3d(-0.8%, -1.5%, 0);
+    transform: scale(1.22) translate3d(-4%, -2%, 0);
   }
 }
 
@@ -2006,7 +2006,12 @@ address {
   position: absolute;
   z-index: 1;
   inset: 0;
-  background: linear-gradient(90deg, rgba(23, 24, 19, 0.82) 0%, rgba(23, 24, 19, 0.6) 42%, rgba(23, 24, 19, 0.12) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(23, 24, 19, 0.82) 0%,
+    rgba(23, 24, 19, 0.6) 42%,
+    rgba(23, 24, 19, 0.12) 100%
+  );
   content: '';
   pointer-events: none;
 }

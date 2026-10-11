@@ -46,11 +46,24 @@ test('history section displays the optimized color-graded grove photo', async ({
   await image.evaluate((element) => element.scrollIntoView({ block: 'center' }))
   await expect(image).toHaveAttribute('srcset', /histoire-palmeraie-1440\.webp/)
   await expect(image).toHaveAttribute('loading', 'lazy')
-  await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0)
-  await expect(image).toHaveAttribute('alt', /route/i)
-  await expect.poll(() => image.evaluate((element) => getComputedStyle(element).animationName)).toBe('history-photo-drift')
   await expect
-    .poll(() => image.evaluate((element) => element.getAnimations().some((animation) => animation.playState === 'running')))
+    .poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth))
+    .toBeGreaterThan(0)
+  await expect(image).toHaveAttribute('alt', /route/i)
+  await expect
+    .poll(() => page.locator('#histoire h2').evaluate((heading) => getComputedStyle(heading).fontFamily))
+    .toContain('Amiri')
+  await expect.poll(() => page.evaluate(() => document.fonts.check('400 32px Amiri'))).toBe(true)
+  await expect
+    .poll(() => image.evaluate((element) => getComputedStyle(element).animationName))
+    .toBe('history-photo-drift')
+  await expect.poll(() => image.evaluate((element) => getComputedStyle(element).animationDuration)).toBe('5s')
+  await expect
+    .poll(() =>
+      image.evaluate((element) =>
+        element.getAnimations().some((animation) => animation.playState === 'running'),
+      ),
+    )
     .toBe(true)
   const initialFrame = await image.evaluate((element) => getComputedStyle(element).transform)
   await page.waitForTimeout(900)
