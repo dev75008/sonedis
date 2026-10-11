@@ -1,109 +1,139 @@
+"""Build a silent live-action intro from licensed Pexels clips + SONEDIS photo.
+
+Requirements: Python 3.10+, FFmpeg with libx264/libwebp, and ffprobe.
+Run: python scripts/create-intro-film.py
+The two Pexels source MP4s are cached in the system temp directory and are
+downloaded there automatically if they are missing.
+"""
+
 from __future__ import annotations
 
-import math
-import random
+import json
+import os
+import shutil
 import subprocess
 import tempfile
+import urllib.request
 from pathlib import Path
-
-from PIL import Image, ImageDraw, ImageFilter
+from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "public" / "assets" / "video"
-PALM = ROOT / "public" / "assets" / "photos" / "palmeraie-1440.webp"
-FFMPEG = "ffmpeg"
-W, H, FPS = 1920, 1080, 24
+SOURCE_DIR = Path(tempfile.gettempdir()) / "sonedis-pexels"
+PALM_PHOTO = ROOT / "public" / "assets" / "photos" / "palmeraie-1440.webp"
+FFMPEG = os.environ.get("FFMPEG", "ffmpeg")
+FFPROBE = os.environ.get("FFPROBE", "ffprobe")
+FILM = OUT / "intro-biskra.mp4"
+POSTER = OUT / "intro-poster.webp"
+MAX_VIDEO_BYTES = 4_000_000
+
+SOURCES = {
+    "dunes": (
+        "dunes-pexels-27721174.mp4",
+        "https://videos.pexels.com/video-files/27721174/12210758_3840_2160_30fps.mp4",
+        176_794_152,
+    ),
+    "date_palm": (
+        "date-palm-pexels-14158721.mp4",
+        "https://videos.pexels.com/video-files/14158721/14158721-uhd_4096_2160_30fps.mp4",
+        41_045_232,
+    ),
+}
 
 
-def dune_frame(path: Path) -> None:
-    image = Image.new("RGB", (W, H))
-    draw = ImageDraw.Draw(image)
-    sky = [
-        (0, (232, 182, 115)),
-        (int(H * 0.32), (249, 215, 156)),
-        (int(H * 0.62), (226, 166, 103)),
-        (H, (170, 89, 52)),
-    ]
-    for y in range(H):
-        for index in range(len(sky) - 1):
-            y0, c0 = sky[index]
-            y1, c1 = sky[index + 1]
-            if y0 <= y <= y1:
-                p = (y - y0) / max(1, y1 - y0)
-                color = tuple(round(a + (b - a) * p) for a, b in zip(c0, c1))
-                draw.line((0, y, W, y), fill=color)
-                break
+def ensure_source(filename: str, url: str, expected_size: int) -> Path:
+    """Reuse the local source cache; otherwise download to the ignored temp dir."""
+    SOURCE_DIR.mkdir(parents=True, exist_ok=True)
+    path = SOURCE_DIR / filename
+    if path.exists() and path.stat().st_size == expected_size:
+        return path
+    temporary = path.with_suffix(path.suffix + ".part")
+    request = urllib.request.Request(url, headers={"User-Agent": "SONEDIS-media-build/1.0"})
+    try:
+        with urllib.request.urlopen(request, timeout=60) as response, temporary.open("wb") as output:
+            while chunk := response.read(1024 * 1024):
+                output.write(chunk)
+        if temporary.stat().st_size != expected_size:
+            raise RuntimeError(
+                f"Unexpected source size for {filename}: {temporary.stat().st_size:,} bytes; "
+                f"expected {expected_size:,}. Check the Pexels download URL/source record."
+            )
+        temporary.replace(path)
+    finally:
+        temporary.unlink(missing_ok=True)
+    return path
 
-    glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    glow_draw = ImageDraw.Draw(glow)
-    glow_draw.ellipse((1160, 225, 1580, 645), fill=(255, 229, 171, 105))
-    glow = glow.filter(ImageFilter.GaussianBlur(95))
-    image = Image.alpha_composite(image.convert("RGBA"), glow)
-    ImageDraw.Draw(image).ellipse((1295, 310, 1450, 465), fill=(255, 232, 184, 235))
 
-    def dune(base: int, amp1: float, amp2: float, phase: float, color0: tuple[int, int, int], color1: tuple[int, int, int]) -> None:
-        mask = Image.new("L", (W, H), 0)
-        mask_draw = ImageDraw.Draw(mask)
-        points = []
-        for x in range(-16, W + 20, 6):
-            y = base + amp1 * math.sin(x / 520 + phase) + amp2 * math.sin(x / 205 + phase * 1.8)
-            points.append((x, round(y)))
-        mask_draw.polygon(points + [(W + 10, H), (-10, H)], fill=255)
-        gradient = Image.new("RGB", (1, H))
-        gd = ImageDraw.Draw(gradient)
-        top = min(y for _, y in points)
-        for y in range(max(0, top), H):
-            p = max(0.0, min(1.0, (y - top) / max(1, H - top)))
-            shade = p**0.7
-            c = tuple(round(a + (b - a) * shade) for a, b in zip(color0, color1))
-            gd.point((0, y), fill=c)
-        gradient = gradient.resize((W, H))
-        image.paste(gradient, (0, 0), mask)
-        ridge = []
-        for x in range(0, W + 1, 8):
-            y = base + amp1 * math.sin(x / 520 + phase) + amp2 * math.sin(x / 205 + phase * 1.8)
-            ridge.append((x, round(y)))
-        ImageDraw.Draw(image).line(ridge, fill=(255, 221, 166, 100), width=3)
+def run(args: list[str]) -> None:
+    subprocess.run(args, check=True)
 
-    dune(610, 100, 18, 0.4, (199, 126, 69), (170, 86, 52))
-    dune(755, 120, 24, 2.4, (197, 116, 60), (145, 68, 45))
-    dune(875, 78, 18, 4.0, (168, 83, 48), (111, 51, 39))
 
-    rng = random.Random(1965)
-    dust = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    dust_draw = ImageDraw.Draw(dust)
-    for _ in range(250):
-        x = rng.randint(0, W - 1)
-        y = rng.randint(400, H - 1)
-        radius = rng.choice((1, 1, 1, 2, 3))
-        dust_draw.ellipse((x, y, x + radius, y + radius), fill=(255, 225, 173, rng.randint(18, 75)))
-    image = Image.alpha_composite(image, dust)
-    grain = Image.effect_noise((W, H), 38).convert("RGB")
-    image = Image.blend(image.convert("RGB"), grain, 0.085)
-    image.save(path, quality=94)
+def probe() -> dict[str, Any]:
+    result = subprocess.run(
+        [FFPROBE, "-v", "error", "-show_entries", "format=duration,size", "-show_entries", "stream=codec_name,codec_type,width,height,avg_frame_rate", "-of", "json", str(FILM)],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return json.loads(result.stdout)
+
+
+def verify() -> None:
+    info = probe()
+    streams = info.get("streams", [])
+    video = next((stream for stream in streams if stream.get("codec_type") == "video"), None)
+    assert video and video.get("codec_name") == "h264", "Expected an H.264 video stream."
+    assert video.get("width") == 1280 and video.get("height") == 720, "Expected 1280x720 output."
+    assert not any(stream.get("codec_type") == "audio" for stream in streams), "Intro must be silent."
+    duration = float(info["format"]["duration"])
+    size = int(info["format"]["size"])
+    assert 9.0 <= duration <= 10.0, f"Unexpected montage duration: {duration:.2f}s"
+    assert size <= MAX_VIDEO_BYTES, f"Video exceeds {MAX_VIDEO_BYTES:,} bytes: {size:,}"
+    poster_info = subprocess.run(
+        [FFPROBE, "-v", "error", "-show_entries", "stream=codec_name,width,height", "-of", "json", str(POSTER)],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    poster = json.loads(poster_info.stdout)["streams"][0]
+    assert poster.get("codec_name") == "webp" and (poster.get("width"), poster.get("height")) == (1280, 720)
+    print(f"Verified: H.264 1280x720 at {video.get('avg_frame_rate')}, {duration:.3f}s, {size:,} bytes, silent.")
+    print(f"Verified poster: WEBP 1280x720, {POSTER.stat().st_size:,} bytes.")
 
 
 def main() -> None:
-    if not PALM.exists():
-        raise SystemExit(f"Missing source image: {PALM}")
+    if shutil.which(FFMPEG) is None or shutil.which(FFPROBE) is None:
+        raise SystemExit("FFmpeg and ffprobe must be available on PATH (or set FFMPEG/FFPROBE).")
+    if not PALM_PHOTO.exists():
+        raise SystemExit(f"Missing local SONEDIS grove photograph: {PALM_PHOTO}")
     OUT.mkdir(parents=True, exist_ok=True)
-    with tempfile.TemporaryDirectory(prefix="sonedis-intro-") as temp:
-        temp_path = Path(temp)
-        desert = temp_path / "desert.jpg"
-        dune_frame(desert)
+    dunes = ensure_source(*SOURCES["dunes"])
+    date_palm = ensure_source(*SOURCES["date_palm"])
 
-        video_out = OUT / "intro-biskra.mp4"
-        subprocess.run(
-            [FFMPEG, "-hide_banner", "-loglevel", "error", "-y", "-loop", "1", "-framerate", str(FPS), "-t", "4.4", "-i", str(desert), "-loop", "1", "-framerate", str(FPS), "-t", "4.4", "-i", str(PALM), "-filter_complex", "[0:v]scale=1365:768:force_original_aspect_ratio=increase,crop=1280:720,zoompan=z='min(zoom+0.00022,1.045)':d=1:x='iw/2-(iw/zoom/2)+12*sin(on/80)':y='ih/2-(ih/zoom/2)':s=1280x720:fps=24,trim=duration=4.4,setpts=PTS-STARTPTS[v0];[1:v]scale=1365:768:force_original_aspect_ratio=increase,crop=1280:720,zoompan=z='min(zoom+0.00016,1.035)':d=1:x='iw/2-(iw/zoom/2)-10*sin(on/100)':y='ih/2-(ih/zoom/2)+5*sin(on/110)':s=1280x720:fps=24,trim=duration=4.4,setpts=PTS-STARTPTS,eq=contrast=0.96:saturation=1.18:brightness=0.09:gamma=1.18,colorbalance=rs=0.06:gs=0.02:bs=-0.04[v1];[v0][v1]xfade=transition=fade:duration=0.9:offset=3.5[v]", "-map", "[v]", "-an", "-c:v", "libx264", "-preset", "slow", "-crf", "25", "-movflags", "+faststart", "-pix_fmt", "yuv420p", str(video_out)],
-            check=True,
-        )
-        subprocess.run(
-            [FFMPEG, "-hide_banner", "-loglevel", "error", "-y", "-ss", "3.8", "-i", str(video_out), "-frames:v", "1", "-c:v", "libwebp", "-q:v", "70", str(OUT / "intro-poster.webp")],
-            check=True,
-        )
-    if (OUT / "intro-poster.webp").stat().st_size < 10_000:
-        raise SystemExit("Generated poster is unexpectedly small; refusing to keep an invalid image.")
-    print(f"Created {video_out} and {OUT / 'intro-poster.webp'}")
+    # Real motion: wind-rippled dunes → date-palm fronds moving in the breeze
+    # → the local SONEDIS grove image. The stock footage is not identified as Biskra.
+    run([
+        FFMPEG, "-hide_banner", "-loglevel", "error", "-y",
+        "-ss", "12", "-t", "3.7", "-i", str(dunes),
+        "-ss", "6", "-t", "3.7", "-i", str(date_palm),
+        "-loop", "1", "-framerate", "24", "-t", "3.7", "-i", str(PALM_PHOTO),
+        "-filter_complex",
+        "[0:v]scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,fps=24,"
+        "trim=duration=3.7,setpts=PTS-STARTPTS,eq=contrast=1.02:saturation=1.06:brightness=0.01[dunes];"
+        "[1:v]scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,fps=24,"
+        "trim=duration=3.7,setpts=PTS-STARTPTS,eq=contrast=1.02:saturation=1.08:brightness=0.01[palm];"
+        "[2:v]scale=1280:720:force_original_aspect_ratio=increase,crop=1280:720,"
+        "zoompan=z='min(zoom+0.00018,1.025)':d=1:x='iw/2-(iw/zoom/2)':"
+        "y='ih/2-(ih/zoom/2)':s=1280x720:fps=24,trim=duration=3.7,setpts=PTS-STARTPTS,"
+        "eq=contrast=1.02:saturation=1.06:brightness=0.01[grove];"
+        "[dunes][palm]xfade=transition=fade:duration=0.7:offset=3.0[first];"
+        "[first][grove]xfade=transition=fade:duration=0.75:offset=6.0[out]",
+        "-map", "[out]", "-an", "-c:v", "libx264", "-preset", "slow", "-crf", "24",
+        "-profile:v", "main", "-level", "3.1", "-movflags", "+faststart", "-pix_fmt", "yuv420p", str(FILM),
+    ])
+    # Capture the stable local-grove closing shot, after both live clips/fades.
+    run([FFMPEG, "-hide_banner", "-loglevel", "error", "-y", "-ss", "9.2", "-i", str(FILM), "-frames:v", "1", "-vf", "scale=1280:720", "-c:v", "libwebp", "-quality", "78", str(POSTER)])
+    verify()
 
 
 if __name__ == "__main__":

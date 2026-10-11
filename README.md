@@ -31,7 +31,7 @@ npm run dev
 - Les textes anglais nouveaux sont des propositions à valider. Leur inventaire et les éléments éditoriaux à fournir sont listés dans [`TODO_CONTENU.md`](TODO_CONTENU.md).
 - Les informations produit, photos, logos et certifications proviennent des pages SONEDIS et des fichiers publics `sonedis.com/wp-content/uploads/` consultés pour l’audit.
 - Les médias sont servis localement depuis `public/assets/` : les dix photos de galerie et les photographies produit disposent de WebP responsifs ; les logos et badges sources gardent leurs proportions.
-- L’ouverture vidéo de la page d’accueil (dunes illustrées puis photographie de la palmeraie SONEDIS) est un MP4 local. Le souffle du vent est synthétisé dans le navigateur avec Web Audio, uniquement après activation manuelle. Le script `scripts/create-intro-film.py` regénère la vidéo et son poster avec Python/Pillow et FFmpeg. La vidéo reste muette et se fige sur son poster quand `prefers-reduced-motion` est activé.
+- L’ouverture de la page d’accueil (dunes puis palmeraie) est une vidéo MP4 locale et muette. Le script `scripts/create-intro-film.py` régénère le média et son poster. Quand `prefers-reduced-motion` est activé, la page reste sur le poster et propose une lecture volontaire.
 - Les mentions légales et la politique de confidentialité sont en attente des textes SONEDIS.
 
 ## Formulaire de contact

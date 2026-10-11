@@ -4,6 +4,7 @@ coverage/
 playwright-report/
 test-results/
 debug.log
+.tmp/
 .env
 .env.*
 !.env.example

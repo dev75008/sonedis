@@ -9,11 +9,10 @@ Dernière vérification locale : 11 octobre 2026, changements en attente de comm
 | TypeScript (`tsc -b`) | Réussi |
 | ESLint | Réussi |
 | Vitest | 3 tests réussis |
-| Playwright Chromium | 6 tests réussis |
-| Playwright WebKit | 5 tests réussis, 1 ignoré (Web Audio absent dans le navigateur headless) |
+| Playwright Chromium + WebKit | 14 tests réussis au total; 2 tests de lecture MP4 ignorés dans WebKit, car le navigateur headless Windows annule le chargement |
 | axe WCAG 2.1 AA | Aucune violation détectée sur la page d’accueil avec `prefers-reduced-motion` |
 | Build Vite | Réussi; chunks initiaux découpés par route |
-| Vidéo d’introduction | MP4 H.264, 1280×720, 7,9 s, 602 ko; poster WebP 1280×720. Lecture muette, souffle Web Audio activé au clic. |
+| Vidéo d’introduction | H.264, 1280 × 720, 24 i/s, 9,75 s, 2 352 884 octets, sans piste audio; poster WebP 1280 × 720, 147 146 octets |
 | Firefox | Non vérifié : le navigateur Playwright installé plante au démarrage (`Target crashed`) dans cet environnement Windows |
 
 ## Mesures réelles de performance
@@ -34,7 +33,9 @@ Aucun score Lighthouse n’est communiqué : il n’a pas été mesuré sur un a
 - Pas de balayage complet de toutes les largeurs jusqu’à 1920 px.
 - Le test axe simule `prefers-reduced-motion`; une revue manuelle sur appareil n’a pas été faite.
 - Le moteur WebKit ne remplace pas un test natif sur Safari/iOS/macOS.
-- Le film passe d’une illustration originale de dunes à la photo de palmeraie SONEDIS déjà présente dans les assets. Le son est synthétisé localement via Web Audio, sans chargement réseau ni lecture forcée.
+- En mode animations réduites, l’autoplay est désactivé et un bouton permet de lancer le film à la demande. Les tests Chromium valident l’autoplay standard, le lancement volontaire et l’absence de piste son / commande « Écouter le vent ».
+- L’ancien rapport de mise en ligne n’a pas été refait pour cette version : les nouvelles URLs MP4 et poster restent à vérifier après publication.
+- Le film enchaîne une vraie séquence vidéo de dunes, une séquence vidéo de palmier dattier et une photo de palmeraie SONEDIS déjà présente dans les assets. Les deux plans vidéo stock n’ont pas de provenance vérifiée à Biskra et ne sont pas présentés comme tels.
 
 ## Limites et points à valider
 

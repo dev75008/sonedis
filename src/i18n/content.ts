@@ -23,9 +23,8 @@ export const resources = {
       },
       hero: {
         label: 'Producteur de datte depuis 1965',
+        playFilm: 'Lire le film d’introduction',
         title: 'Une famille, une passion, une promesse de qualité.',
-        soundOn: 'Écouter le vent',
-        soundOff: 'Couper le son',
         intro:
           'Une histoire familiale au cœur de Biskra, portée par la passion de la terre et le respect des savoir-faire traditionnels.',
         cta: 'Découvrir SONEDIS',
@@ -143,9 +142,8 @@ export const resources = {
       },
       hero: {
         label: 'Date Producers Since 1965',
+        playFilm: 'Play the introductory film',
         title: 'Family-owned, Passion-driven, Quality-guaranteed.',
-        soundOn: 'Hear the wind',
-        soundOff: 'Mute sound',
         intro:
           'A family story rooted in Biskra, carried forward by a passion for the land and deep respect for traditional expertise.',
         cta: 'Discover SONEDIS',
