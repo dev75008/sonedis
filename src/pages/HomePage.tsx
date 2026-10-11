@@ -40,6 +40,7 @@ export default function HomePage() {
   const film = useRef<HTMLVideoElement>(null)
   const copy = useRef<HTMLDivElement>(null)
   const mdd = useRef<HTMLElement>(null)
+  const history = useRef<HTMLElement>(null)
   useEffect(() => {
     const video = film.current
     if (!video) return
@@ -90,6 +91,43 @@ export default function HomePage() {
       return () => mm.revert()
     },
     { scope: hero },
+  )
+  useGSAP(
+    () => {
+      const frame = history.current?.querySelector<HTMLElement>('.home-intro__visual')
+      const photo = frame?.querySelector('img')
+      if (!frame || !photo) return
+      const mm = gsap.matchMedia()
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        gsap.fromTo(
+          frame,
+          { clipPath: 'inset(8% 7% 8% 7%)' },
+          {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            duration: motion.duration.feature,
+            ease: motion.ease.scene,
+            scrollTrigger: { trigger: frame, start: 'top 82%', once: true },
+          },
+        )
+        gsap.fromTo(
+          photo,
+          { scale: 1.12 },
+          {
+            scale: 1.04,
+            duration: motion.duration.feature,
+            ease: motion.ease.reveal,
+            scrollTrigger: { trigger: frame, start: 'top 82%', once: true },
+          },
+        )
+        gsap.to(photo, {
+          yPercent: -3,
+          ease: 'none',
+          scrollTrigger: { trigger: frame, start: 'top bottom', end: 'bottom top', scrub: 0.6 },
+        })
+      })
+      return () => mm.revert()
+    },
+    { scope: history },
   )
   useGSAP(
     () => {
@@ -150,7 +188,7 @@ export default function HomePage() {
           </a>
         </section>
 
-        <section className="home-intro section-pad" id="histoire">
+        <section className="home-intro section-pad" id="histoire" ref={history}>
           <div>
             <SectionLabel number="01">{t('about.eyebrow')}</SectionLabel>
             <h2>{t('about.title')}</h2>
@@ -161,6 +199,22 @@ export default function HomePage() {
               {t('about.link')} <span aria-hidden="true">↗</span>
             </Link>
           </div>
+          <figure className="home-intro__visual">
+            <img
+              src={`${basePath}/assets/photos/histoire-palmeraie-960.webp`}
+              srcSet={`${basePath}/assets/photos/histoire-palmeraie-480.webp 480w, ${basePath}/assets/photos/histoire-palmeraie-960.webp 960w, ${basePath}/assets/photos/histoire-palmeraie-1440.webp 1440w`}
+              sizes="(max-width: 780px) calc(100vw - 2rem), 88vw"
+              alt={
+                language === 'en'
+                  ? 'A road leads through sandy ground toward a date palm grove'
+                  : 'Une route traverse un terrain sablonneux vers une palmeraie'
+              }
+              width="1440"
+              height="972"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
         </section>
 
         <StoryRail />

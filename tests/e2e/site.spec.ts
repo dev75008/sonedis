@@ -39,6 +39,16 @@ test('mobile menu works and layout fits a 360px viewport', async ({ page }) => {
   expect(width).toBeLessThanOrEqual(361)
 })
 
+test('history section displays the optimized color-graded grove photo', async ({ page }) => {
+  await page.goto('./')
+  const image = page.locator('#histoire .home-intro__visual img')
+  await image.scrollIntoViewIfNeeded()
+  await expect(image).toHaveAttribute('srcset', /histoire-palmeraie-1440\.webp/)
+  await expect(image).toHaveAttribute('loading', 'lazy')
+  await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0)
+  await expect(image).toHaveAttribute('alt', /route/i)
+})
+
 test('intro film autoplays silently in a loop with no playback button', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.goto('./')

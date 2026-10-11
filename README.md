@@ -31,6 +31,7 @@ npm run dev
 - Les textes anglais nouveaux sont des propositions à valider. Leur inventaire et les éléments éditoriaux à fournir sont listés dans [`TODO_CONTENU.md`](TODO_CONTENU.md).
 - Les informations produit, photos, logos et certifications proviennent des pages SONEDIS et des fichiers publics `sonedis.com/wp-content/uploads/` consultés pour l’audit.
 - Les médias sont servis localement depuis `public/assets/` : les dix photos de galerie et les photographies produit disposent de WebP responsifs ; les logos et badges sources gardent leurs proportions.
+- La section « Notre histoire » utilise la photo de route vers la palmeraie fournie par l’utilisateur, colorisée et optimisée en WebP responsive ; reveal et léger parallaxe GSAP au défilement, statiques avec `prefers-reduced-motion`.
 - L’ouverture de la page d’accueil utilise la vidéo Pexels choisie par SONEDIS : un plan rapproché de fruits de palmier sous ciel bleu, étalonné et encodé localement en 1080p, muet et lu automatiquement en boucle. Le script `scripts/create-intro-film.py` régénère le média et son poster. La page ne montre aucun bouton de lecture.
 - Les mentions légales et la politique de confidentialité sont en attente des textes SONEDIS.
 

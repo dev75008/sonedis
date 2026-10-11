@@ -23,6 +23,8 @@ Consultation à titre documentaire ; aucun code d’exemple de dépôt externe n
 
 Les images et logos embarqués ont été téléchargés depuis les URL publiques `sonedis.com/wp-content/uploads/`, puis stockés localement. Les logos de SONEDIS, marques, enseignes et certifications sont gardés dans leur format source et affichés sans déformation. Les photographies et packagings ont des dérivés WebP responsifs. L’accès public à ces fichiers ne prouve pas à lui seul les droits de réutilisation : validation SONEDIS à obtenir pour les logos tiers, voir `TODO_CONTENU.md`.
 
+La photo de route vers la palmeraie de la section « Notre histoire » vient de l’image fournie par l’utilisateur et a été colorisée avec ImageGen en conservant la scène. Les exports WebP responsifs sont `histoire-palmeraie-480.webp`, `histoire-palmeraie-960.webp` et `histoire-palmeraie-1440.webp`.
+
 ## Vidéo d'introduction
 
 Une seule séquence est intégrée au montage muet `public/assets/video/intro-dates-14160251.mp4`. Le fichier source est mis en cache dans le dossier temporaire système `sonedis-pexels/` pour la régénération et n'est pas servi séparément.
