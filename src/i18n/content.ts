@@ -31,7 +31,7 @@ export const resources = {
       about: {
         eyebrow: 'Notre histoire',
         title: 'La datte, une histoire de famille.',
-        body: 'À Biskra, la datte est bien plus qu’un fruit : elle porte la mémoire d’une terre et de gestes transmis. C’est là que SONEDIS est née, en 1965. Depuis plusieurs générations, notre famille avance avec la même passion pour la terre et le même respect des savoir-faire traditionnels. Dans chaque datte, un héritage se prolonge — fidèle à la terre, aux gestes et aux valeurs qui nous rassemblent.',
+        body: 'Nous cultivons et distribuons la reine des dattes, la Deglet Nour. Pour les autres variétés, nous nous approvisionnons auprès des meilleures palmeraies du monde et avons tissé un réseau de producteurs de qualité qui partagent nos valeurs et notre amour pour ce fruit. La Medjool vient du Maroc ; la Sukari, de la péninsule Arabique.',
         link: 'Notre histoire',
         origin: 'Ancrée dans la région de Biskra',
         heritage: 'Plusieurs générations',
