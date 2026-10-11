@@ -723,6 +723,11 @@ address {
   padding: clamp(4rem, 8vw, 7.8rem) var(--page-gutter) 5rem;
   background: var(--paper-deep);
 }
+.story-rail--no-intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .story-rail__intro {
   position: relative;
   z-index: 2;
@@ -742,6 +747,9 @@ address {
   min-width: 100%;
   align-items: stretch;
   margin-top: clamp(3.5rem, 7vw, 6rem);
+}
+.story-rail--no-intro .story-track {
+  margin-top: 0;
 }
 .story-panel {
   position: relative;

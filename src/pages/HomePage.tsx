@@ -255,7 +255,7 @@ export default function HomePage() {
           </figure>
         </section>
 
-        <StoryRail omitIntroBody />
+        <StoryRail omitIntro />
 
         <section className="products-section section-pad" id="produits">
           <div className="section-heading section-heading--split">
