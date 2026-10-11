@@ -60,28 +60,28 @@ test('history keeps the still photo and adds the silent color-graded grove film'
   const film = page.locator('#histoire .home-intro__film video')
   await expect(film).toHaveJSProperty('muted', true)
   await expect(film).toHaveJSProperty('loop', true)
-  await expect(film).toHaveAttribute('preload', 'none')
+  await expect(film).toHaveJSProperty('autoplay', true)
+  await expect(film).toHaveAttribute('preload', 'auto')
   await expect(film).toHaveAttribute('playsinline', '')
   await expect(film).toHaveAttribute('poster', /histoire-palmeraie-poster\.webp$/)
   await expect(film.locator('source')).toHaveAttribute('src', /histoire-palmeraie\.mp4$/)
   await expect(film).not.toHaveAttribute('controls', '')
 })
 
-test('history film plays automatically without audio in Chromium', async ({ page, browserName }) => {
+test('history film plays continuously without audio in Chromium', async ({ page, browserName }) => {
   test.skip(browserName !== 'chromium', 'The installed Windows WebKit test runtime can cancel MP4 decoding.')
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.goto('./')
   const film = page.locator('#histoire .home-intro__film video')
-  await film.evaluate((element) => element.scrollIntoView({ block: 'center' }))
   await expect.poll(() => film.evaluate((video) => video.readyState >= 2 && !video.paused)).toBe(true)
 })
 
-test('history film stays paused when reduced motion is requested', async ({ page }) => {
+test('history film remains automatic with reduced motion enabled', async ({ page, browserName }) => {
+  test.skip(browserName !== 'chromium', 'The installed Windows WebKit test runtime can cancel MP4 decoding.')
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('./')
   const film = page.locator('#histoire .home-intro__film video')
-  await film.evaluate((element) => element.scrollIntoView({ block: 'center' }))
-  await expect.poll(() => film.evaluate((video) => video.paused)).toBe(true)
+  await expect.poll(() => film.evaluate((video) => video.readyState >= 2 && !video.paused)).toBe(true)
 })
 
 test('intro film autoplays silently in a loop with no playback button', async ({ page }) => {

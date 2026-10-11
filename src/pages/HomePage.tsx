@@ -52,28 +52,13 @@ export default function HomePage() {
   useEffect(() => {
     const video = historyFilm.current
     if (!video) return
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
-    let isNearViewport = false
-    const syncPlayback = () => {
-      if (reducedMotion.matches || !isNearViewport) {
-        video.pause()
-        return
-      }
-      video.muted = true
-      void video.play().catch(() => undefined)
-    }
-    const observer = new IntersectionObserver(
-      (entries) => {
-        isNearViewport = entries.some((entry) => entry.isIntersecting)
-        syncPlayback()
-      },
-      { rootMargin: '160px 0px' },
-    )
-    observer.observe(video)
-    reducedMotion.addEventListener('change', syncPlayback)
+    video.defaultMuted = true
+    video.muted = true
+    const retryPlayback = () => void video.play().catch(() => undefined)
+    video.addEventListener('canplay', retryPlayback)
+    retryPlayback()
     return () => {
-      observer.disconnect()
-      reducedMotion.removeEventListener('change', syncPlayback)
+      video.removeEventListener('canplay', retryPlayback)
       video.pause()
     }
   }, [])
@@ -218,10 +203,11 @@ export default function HomePage() {
             />
             <video
               ref={historyFilm}
+              autoPlay
               muted
               loop
               playsInline
-              preload="none"
+              preload="auto"
               width="478"
               height="850"
               poster={`${basePath}/assets/video/histoire-palmeraie-poster.webp`}
