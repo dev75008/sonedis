@@ -95,8 +95,7 @@ export default function HomePage() {
   useGSAP(
     () => {
       const frame = history.current?.querySelector<HTMLElement>('.home-intro__visual')
-      const photo = frame?.querySelector('img')
-      if (!frame || !photo) return
+      if (!frame) return
       const mm = gsap.matchMedia()
       mm.add('(prefers-reduced-motion: no-preference)', () => {
         gsap.fromTo(
@@ -109,21 +108,6 @@ export default function HomePage() {
             scrollTrigger: { trigger: frame, start: 'top 82%', once: true },
           },
         )
-        gsap.fromTo(
-          photo,
-          { scale: 1.12 },
-          {
-            scale: 1.04,
-            duration: motion.duration.feature,
-            ease: motion.ease.reveal,
-            scrollTrigger: { trigger: frame, start: 'top 82%', once: true },
-          },
-        )
-        gsap.to(photo, {
-          yPercent: -3,
-          ease: 'none',
-          scrollTrigger: { trigger: frame, start: 'top bottom', end: 'bottom top', scrub: 0.6 },
-        })
       })
       return () => mm.revert()
     },

@@ -9,7 +9,7 @@ Dernière vérification locale : 11 octobre 2026, changements en attente de comm
 | TypeScript (`tsc -b`) | Réussi |
 | ESLint | Réussi |
 | Vitest | 3 tests réussis |
-| Playwright Chromium + WebKit | 14 tests réussis; 2 tests de décodage/autoplay ignorés sous WebKit Windows, qui annule le chargement MP4 |
+| Playwright Chromium + WebKit | 16 tests réussis; 2 tests de décodage/autoplay ignorés sous WebKit Windows, qui annule le chargement MP4; tests photo confirment l’animation active, un changement de transformation, et l’état fixe avec `prefers-reduced-motion` |
 | axe WCAG 2.1 AA | Aucune violation détectée sur la page d’accueil avec `prefers-reduced-motion` |
 | Build Vite | Réussi; chunks initiaux découpés par route |
 | Vidéo d’introduction | H.264 High, `yuv420p`, 1920 × 1080, 24 i/s, 10,5 s, 4 657 880 octets, sans piste audio; poster WebP 1920 × 1080, 515 274 octets |
@@ -35,7 +35,7 @@ Aucun score Lighthouse n’est communiqué : il n’a pas été mesuré sur un a
 - Le test axe simule `prefers-reduced-motion`; une revue manuelle sur appareil n’a pas été faite.
 - Le moteur WebKit ne remplace pas un test natif sur Safari/iOS/macOS.
 - Le film utilise uniquement le clip Pexels #14160251 fourni dans l’échange, en lecture automatique, muette et en boucle, y compris avec `prefers-reduced-motion` selon la demande explicite. Son origine géographique n'est pas confirmée.
-- La photo de route et de palmeraie se révèle au défilement avec un léger zoom/parallaxe GSAP ; le mouvement est désactivé avec `prefers-reduced-motion`.
+- La photo de route et de palmeraie a un mouvement Ken Burns continu de 12 s et un reveal au défilement ; ces mouvements sont désactivés avec `prefers-reduced-motion`.
 
 ## Limites et points à valider
 

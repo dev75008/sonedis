@@ -40,13 +40,30 @@ test('mobile menu works and layout fits a 360px viewport', async ({ page }) => {
 })
 
 test('history section displays the optimized color-graded grove photo', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.goto('./')
   const image = page.locator('#histoire .home-intro__visual img')
-  await image.scrollIntoViewIfNeeded()
+  await image.evaluate((element) => element.scrollIntoView({ block: 'center' }))
   await expect(image).toHaveAttribute('srcset', /histoire-palmeraie-1440\.webp/)
   await expect(image).toHaveAttribute('loading', 'lazy')
   await expect.poll(() => image.evaluate((element) => (element as HTMLImageElement).naturalWidth)).toBeGreaterThan(0)
   await expect(image).toHaveAttribute('alt', /route/i)
+  await expect.poll(() => image.evaluate((element) => getComputedStyle(element).animationName)).toBe('history-photo-drift')
+  await expect
+    .poll(() => image.evaluate((element) => element.getAnimations().some((animation) => animation.playState === 'running')))
+    .toBe(true)
+  const initialFrame = await image.evaluate((element) => getComputedStyle(element).transform)
+  await page.waitForTimeout(900)
+  const movingFrame = await image.evaluate((element) => getComputedStyle(element).transform)
+  expect(movingFrame).not.toBe(initialFrame)
+})
+
+test('history photo stays still when reduced motion is requested', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('./')
+  const image = page.locator('#histoire .home-intro__visual img')
+  await image.evaluate((element) => element.scrollIntoView({ block: 'center' }))
+  await expect.poll(() => image.evaluate((element) => getComputedStyle(element).animationName)).toBe('none')
 })
 
 test('intro film autoplays silently in a loop with no playback button', async ({ page }) => {
