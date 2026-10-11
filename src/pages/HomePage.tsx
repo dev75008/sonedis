@@ -171,17 +171,38 @@ export default function HomePage() {
         <section className="home-intro section-pad" id="histoire">
           <div className="home-intro__story">
             <svg
-              className="home-intro__arch"
-              viewBox="0 0 360 440"
+              className="home-intro__arcade home-intro__arcade--left"
+              viewBox="0 0 120 480"
+              preserveAspectRatio="none"
               fill="none"
               aria-hidden="true"
               focusable="false"
             >
-              <path d="M38 438V201C38 112 106 102 180 18c74 84 142 94 142 183v237" />
-              <path d="M61 438V207c0-64 51-77 119-151 68 74 119 87 119 151v231" />
-              <path d="M92 438V211c0-43 39-59 88-108 49 49 88 65 88 108v227" />
-              <path d="M180 28c-8 16-8 28 0 37 8-9 8-21 0-37Z" />
-              <path d="M180 65v18M168 76h24" />
+              <path d="M7 8h106v464H7zM13 14h94v452H13z" />
+              <path d="M7 160h106M7 320h106M13 166h94M13 326h94" />
+              <path d="M19 157V80c0-28 24-30 41-64 17 34 41 36 41 64v77M29 157V83c0-19 19-23 31-49 12 26 31 30 31 49v74" />
+              <path d="M19 317v-77c0-28 24-30 41-64 17 34 41 36 41 64v77M29 317v-74c0-19 19-23 31-49 12 26 31 30 31 49v74" />
+              <path d="M19 477v-77c0-28 24-30 41-64 17 34 41 36 41 64v77M29 477v-74c0-19 19-23 31-49 12 26 31 30 31 49v74" />
+              <path d="M7 157h106M7 317h106M7 477h106" />
+              <path d="M19 157h10m62 0h10M19 317h10m62 0h10M19 477h10m62 0h10" />
+              <path d="M55 41c-5 6-5 12 0 17 5-5 5-11 0-17Zm0 160c-5 6-5 12 0 17 5-5 5-11 0-17Zm0 160c-5 6-5 12 0 17 5-5 5-11 0-17Z" />
+            </svg>
+            <svg
+              className="home-intro__arcade home-intro__arcade--right"
+              viewBox="0 0 120 480"
+              preserveAspectRatio="none"
+              fill="none"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M7 8h106v464H7zM13 14h94v452H13z" />
+              <path d="M7 160h106M7 320h106M13 166h94M13 326h94" />
+              <path d="M19 157V80c0-28 24-30 41-64 17 34 41 36 41 64v77M29 157V83c0-19 19-23 31-49 12 26 31 30 31 49v74" />
+              <path d="M19 317v-77c0-28 24-30 41-64 17 34 41 36 41 64v77M29 317v-74c0-19 19-23 31-49 12 26 31 30 31 49v74" />
+              <path d="M19 477v-77c0-28 24-30 41-64 17 34 41 36 41 64v77M29 477v-74c0-19 19-23 31-49 12 26 31 30 31 49v74" />
+              <path d="M7 157h106M7 317h106M7 477h106" />
+              <path d="M19 157h10m62 0h10M19 317h10m62 0h10M19 477h10m62 0h10" />
+              <path d="M55 41c-5 6-5 12 0 17 5-5 5-11 0-17Zm0 160c-5 6-5 12 0 17 5-5 5-11 0-17Zm0 160c-5 6-5 12 0 17 5-5 5-11 0-17Z" />
             </svg>
             <SectionLabel number="01">{t('about.eyebrow')}</SectionLabel>
             <h2>{t('about.title')}</h2>
