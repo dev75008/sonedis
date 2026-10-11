@@ -32,7 +32,13 @@ export function ActionLink({
   )
 }
 
-export function StoryRail({ compact = false }: { compact?: boolean }) {
+export function StoryRail({
+  compact = false,
+  omitIntroBody = false,
+}: {
+  compact?: boolean
+  omitIntroBody?: boolean
+}) {
   const { t } = useTranslation()
   const rail = useRef<HTMLElement>(null)
   const track = useRef<HTMLDivElement>(null)
@@ -74,7 +80,7 @@ export function StoryRail({ compact = false }: { compact?: boolean }) {
       <div className="story-rail__intro">
         <SectionLabel number="01">{t('about.eyebrow')}</SectionLabel>
         <h2>{t('about.title')}</h2>
-        <p>{t('about.body')}</p>
+        {!omitIntroBody && <p>{t('about.body')}</p>}
       </div>
       <div className="story-track" ref={track}>
         {milestones.map((item, index) => (
