@@ -39,7 +39,7 @@ test('mobile menu works and layout fits a 360px viewport', async ({ page }) => {
   expect(width).toBeLessThanOrEqual(361)
 })
 
-test('history keeps the still photo and adds the silent color-graded grove film', async ({ page }) => {
+test('history keeps the still photo and centers the silent film as a circular bubble', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'no-preference' })
   await page.goto('./')
   const image = page.locator('#histoire .home-intro__visual img')
@@ -66,18 +66,33 @@ test('history keeps the still photo and adds the silent color-graded grove film'
   await expect(film).toHaveAttribute('poster', /histoire-palmeraie-poster\.webp$/)
   await expect(film.locator('source')).toHaveAttribute('src', /histoire-palmeraie\.mp4$/)
   await expect(film).not.toHaveAttribute('controls', '')
-  const placement = await film.evaluate((video) => {
-    const videoRect = video.getBoundingClientRect()
-    const frameRect = video.parentElement!.getBoundingClientRect()
-    return {
-      centerOffset: Math.abs(videoRect.left + videoRect.width / 2 - (frameRect.left + frameRect.width / 2)),
-      verticalOffset: Math.abs(videoRect.top + videoRect.height / 2 - (frameRect.top + frameRect.height / 2)),
-      ratio: videoRect.width / videoRect.height,
-    }
-  })
-  expect(placement.centerOffset).toBeLessThan(1)
-  expect(placement.verticalOffset).toBeLessThan(1)
-  expect(placement.ratio).toBeCloseTo(478 / 850, 2)
+  const measurePlacement = () =>
+    film.evaluate((video) => {
+      const videoRect = video.getBoundingClientRect()
+      const frameRect = video.parentElement!.getBoundingClientRect()
+      return {
+        centerOffset: Math.abs(videoRect.left + videoRect.width / 2 - (frameRect.left + frameRect.width / 2)),
+        verticalOffset: Math.abs(
+          videoRect.top + videoRect.height / 2 - (frameRect.top + frameRect.height / 2),
+        ),
+        ratio: videoRect.width / videoRect.height,
+        borderRadius: getComputedStyle(video).borderRadius,
+        fitsFrame: videoRect.width <= frameRect.width && videoRect.height <= frameRect.height,
+      }
+    })
+  const desktopPlacement = await measurePlacement()
+  expect(desktopPlacement.centerOffset).toBeLessThan(1)
+  expect(desktopPlacement.verticalOffset).toBeLessThan(1)
+  expect(desktopPlacement.ratio).toBeCloseTo(1, 2)
+  expect(desktopPlacement.borderRadius).toBe('50%')
+  expect(desktopPlacement.fitsFrame).toBe(true)
+
+  await page.setViewportSize({ width: 360, height: 780 })
+  const mobilePlacement = await measurePlacement()
+  expect(mobilePlacement.centerOffset).toBeLessThan(1)
+  expect(mobilePlacement.verticalOffset).toBeLessThan(1)
+  expect(mobilePlacement.ratio).toBeCloseTo(1, 2)
+  expect(mobilePlacement.fitsFrame).toBe(true)
 })
 
 test('history film plays continuously without audio in Chromium', async ({ page, browserName }) => {

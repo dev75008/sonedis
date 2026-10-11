@@ -651,14 +651,17 @@ address {
   transform: translateX(-50%);
   z-index: 1;
   display: block;
-  width: auto;
+  width: min(72vw, 72svh, 34rem);
   max-width: 100%;
-  max-height: 100%;
-  aspect-ratio: 478 / 850;
-  height: 100%;
-  object-fit: contain;
+  height: min(72vw, 72svh, 34rem);
+  border: 1px solid rgba(249, 240, 221, 0.76);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
   background: #17261d;
-  box-shadow: 0 18px 70px rgba(0, 0, 0, 0.38);
+  box-shadow:
+    0 18px 70px rgba(0, 0, 0, 0.38),
+    0 0 0 12px rgba(249, 240, 221, 0.08);
 }
 
 /* Story rail */
