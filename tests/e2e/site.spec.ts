@@ -31,6 +31,22 @@ test('home keeps its story and video without the beige timeline section', async 
   await roots.locator('img').scrollIntoViewIfNeeded()
   await expect.poll(() => roots.locator('img').evaluate((img) => img.naturalWidth)).toBeGreaterThan(0)
   await expect(roots.locator('img')).toHaveAttribute('src', /recolte-960.webp$/)
+  const typography = await page.evaluate(() => {
+    const read = (selector: string) => {
+      const style = getComputedStyle(document.querySelector(selector)!)
+      return [style.fontFamily, style.fontSize]
+    }
+    return {
+      referenceTitle: read('#histoire h2'),
+      rootsTitle: read('#roots-title'),
+      productsTitle: read('#produits h2'),
+      referenceCopy: read('.home-intro__copy p'),
+      rootsCopy: read('#nos-racines div > p:nth-of-type(2)'),
+    }
+  })
+  expect(typography.rootsTitle).toEqual(typography.referenceTitle)
+  expect(typography.productsTitle).toEqual(typography.referenceTitle)
+  expect(typography.rootsCopy).toEqual(typography.referenceCopy)
   const film = page.locator('#histoire .home-intro__film video')
   await expect(film).toHaveJSProperty('muted', true)
   await expect(film).toHaveJSProperty('loop', true)

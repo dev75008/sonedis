@@ -2216,3 +2216,31 @@ address {
     object-position: 72% center;
   }
 }
+
+/* Shared editorial typography: reference is the green family-story section. */
+:root {
+  --section-title-size: clamp(2.5rem, 5.2vw, 5.8rem);
+  --section-copy-size: var(--text-lg);
+}
+
+#main-content h2 {
+  font-family: var(--font-display);
+  font-size: var(--section-title-size);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+}
+
+#main-content p:not([class]),
+#main-content .home-intro__copy,
+#main-content .hero-home__intro {
+  font-family: var(--font-body);
+  font-size: var(--section-copy-size);
+  line-height: 1.6;
+}
+
+@media (max-width: 780px) {
+  :root {
+    --section-title-size: clamp(2.6rem, 10vw, 4.8rem);
+  }
+}

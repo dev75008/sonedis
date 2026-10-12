@@ -41,23 +41,23 @@
 .copy h2 {
   margin: 1.1rem 0 1.6rem;
   color: var(--forest-deep);
-  font-size: clamp(2.7rem, 4vw, 4.5rem);
-  line-height: 1.1;
+  font-size: var(--section-title-size);
+  line-height: 0.98;
   text-wrap: balance;
 }
 
 .copy > p:not(.eyebrow) {
   margin-top: 1.2rem;
   color: var(--ink-soft);
-  font-size: var(--text-sm);
-  line-height: 1.85;
+  font-size: var(--section-copy-size);
+  line-height: 1.6;
 }
 
 .copy > .lead {
-  font-family: var(--font-display);
-  font-size: clamp(1.4rem, 1.8vw, 1.8rem) !important;
-  line-height: 1.45 !important;
-  color: var(--forest) !important;
+  font-family: var(--font-body);
+  font-size: var(--section-copy-size);
+  line-height: 1.6;
+  color: var(--forest);
 }
 
 .signature {
@@ -77,8 +77,8 @@
 .signature p {
   margin-top: 0.7rem;
   color: var(--ink-soft);
-  font-size: var(--text-sm);
-  line-height: 1.85;
+  font-size: var(--section-copy-size);
+  line-height: 1.6;
 }
 
 @media (max-width: 780px) {
