@@ -1,0 +1,98 @@
+.section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 7rem);
+  background: var(--paper);
+}
+
+.portrait {
+  position: relative;
+  padding: 0 0 1.5rem;
+}
+
+.portrait img {
+  width: 100%;
+  height: auto;
+  border-radius: clamp(2rem, 5vw, 5rem);
+  box-shadow: var(--shadow-soft);
+}
+
+.portrait figcaption {
+  margin-top: 1.3rem;
+  text-align: center;
+  color: var(--forest);
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1.6vw, 1.65rem);
+}
+
+.copy {
+  max-width: 40rem;
+}
+
+.eyebrow {
+  color: var(--forest);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.copy h2 {
+  margin: 1.1rem 0 1.6rem;
+  color: var(--forest-deep);
+  font-size: clamp(2.7rem, 4vw, 4.5rem);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.copy > p:not(.eyebrow) {
+  margin-top: 1.2rem;
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+  line-height: 1.85;
+}
+
+.copy > .lead {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 1.8vw, 1.8rem) !important;
+  line-height: 1.45 !important;
+  color: var(--forest) !important;
+}
+
+.signature {
+  margin-top: 1.8rem;
+  border-top: 1px solid var(--line);
+  padding-top: 1.5rem;
+}
+
+.signature span {
+  color: var(--agro);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.signature p {
+  margin-top: 0.7rem;
+  color: var(--ink-soft);
+  font-size: var(--text-sm);
+  line-height: 1.85;
+}
+
+@media (max-width: 780px) {
+  .section {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .portrait {
+    max-width: 32rem;
+    margin-inline: auto;
+  }
+
+  .copy {
+    max-width: none;
+  }
+}

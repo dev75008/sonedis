@@ -1,6 +1,7 @@
 import { useEffect, useRef, type PointerEvent as ReactPointerEvent } from 'react'
 import { useTranslation } from 'react-i18next'
 import Seo from '../components/Seo'
+import RootsSection from '../components/RootsSection'
 import {
   BrandScenes,
   CertificationBadges,
@@ -253,6 +254,8 @@ export default function HomePage() {
             </video>
           </figure>
         </section>
+
+        {language === 'fr' && <RootsSection />}
 
         <section className="products-section section-pad" id="produits">
           <div className="section-heading section-heading--split">
