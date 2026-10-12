@@ -8,7 +8,6 @@ import {
   ContactBlock,
   Gallery,
   SectionLabel,
-  StoryRail,
 } from '../components/Sections'
 import { basePath } from '../utils/site'
 import { gsap, motion, SplitText, useGSAP } from '../app/motion'
@@ -254,8 +253,6 @@ export default function HomePage() {
             </video>
           </figure>
         </section>
-
-        <StoryRail omitIntroBody />
 
         <section className="products-section section-pad" id="produits">
           <div className="section-heading section-heading--split">

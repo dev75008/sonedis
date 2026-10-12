@@ -19,7 +19,7 @@ Act as an independent reviewer. Do not edit the change under review, and do not 
 
 ## SONEDIS history section
 
-The current approved layout restores the story introductions on the home and About pages. On home, `.home-intro__story` and `.story-rail__intro` must render before the three milestone panels. The home story photo and silent looping video must remain present; the video stays muted and inline. About retains its editorial introduction and the story rail. Browser tests must check the requested route and these visible elements before publication.
+The user requested removal of the entire beige timeline shown in their screenshot: the section label, title, and all three columns (1965, II, arrow). Neither home nor About may render `.story-rail` or its milestone panels. Home retains the separate green story section with arcades, photo, and silent looping video. About retains its editorial introduction. Check both routes, the home video, and the transition to the next section; hiding only the timeline heading does not satisfy this request.
 
 ## Approval protocol
 

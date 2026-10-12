@@ -19,21 +19,22 @@ test('navigation, language switch and route fallback', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Dates')
 })
 
-test('restored history introductions keep the home video and timeline', async ({ page }) => {
+test('home keeps its story and video without the beige timeline section', async ({ page }) => {
   await page.goto('./')
   await expect(page.locator('#histoire .home-intro__story')).toBeVisible()
-  await expect(page.locator('.story-rail__intro')).toBeVisible()
-  await expect(page.locator('.story-panel')).toHaveCount(3)
+  await expect(page.locator('.story-rail')).toHaveCount(0)
+  await expect(page.locator('.story-panel')).toHaveCount(0)
   const film = page.locator('#histoire .home-intro__film video')
   await expect(film).toHaveJSProperty('muted', true)
   await expect(film).toHaveJSProperty('loop', true)
   await expect(film).toHaveJSProperty('autoplay', true)
 })
 
-test('About page keeps its story rail introduction', async ({ page }) => {
+test('About page has no beige timeline section', async ({ page }) => {
   await page.goto('./about')
-  await expect(page.locator('.story-rail__intro')).toBeVisible()
-  await expect(page.locator('.story-panel')).toHaveCount(3)
+  await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
+  await expect(page.locator('.story-rail')).toHaveCount(0)
+  await expect(page.locator('.story-panel')).toHaveCount(0)
 })
 
 test('contact validation gives accessible feedback', async ({ page }) => {

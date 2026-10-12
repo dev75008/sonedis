@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import Seo from '../components/Seo'
-import { StoryRail, SectionLabel, ActionLink } from '../components/Sections'
+import { SectionLabel, ActionLink } from '../components/Sections'
 import { basePath } from '../utils/site'
 
 export default function AboutPage() {
@@ -45,7 +45,6 @@ export default function AboutPage() {
             />
           </figure>
         </section>
-        <StoryRail compact />
         <section className="values-section section-pad">
           <div className="section-heading section-heading--split">
             <div>
