@@ -194,9 +194,6 @@ export default function HomePage() {
             <h2>{t('about.title')}</h2>
             <div className="home-intro__copy">
               <p>{t('about.body')}</p>
-              <Link className="text-link" to={language === 'en' ? '/en/about' : '/about'}>
-                {t('about.link')} <span aria-hidden="true">↗</span>
-              </Link>
             </div>
           </div>
           <figure className="home-intro__visual">

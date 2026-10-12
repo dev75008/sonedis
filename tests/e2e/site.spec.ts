@@ -22,6 +22,7 @@ test('navigation, language switch and route fallback', async ({ page }) => {
 test('home keeps its story and video without the beige timeline section', async ({ page }) => {
   await page.goto('./')
   await expect(page.locator('#histoire .home-intro__story')).toBeVisible()
+  await expect(page.locator('#histoire .home-intro__copy a')).toHaveCount(0)
   await expect(page.locator('.story-rail')).toHaveCount(0)
   await expect(page.locator('.story-panel')).toHaveCount(0)
   const roots = page.locator('#nos-racines')
