@@ -65,3 +65,7 @@ Aucun score Lighthouse n’est communiqué : il n’a pas été mesuré sur un a
 ### Limites
 
 Pas de nouvelle mesure Lighthouse, de certification WCAG, ni de test sur téléphone physique ou Safari natif. Les avertissements Vite sur les chemins de polices publiques préexistent; les polices chargées sont vérifiées dans le navigateur. La configuration d’envoi du formulaire et la validation éditoriale EN/légale restent requises.
+
+### Stabilisation du déploiement
+
+Le premier run GitHub `40321793789` a été annulé après plus de dix minutes : ses tests n’avaient pas démarré, le runner Ubuntu 26.04 téléchargeant encore les dépendances système Playwright (185 nouveaux paquets, 142 Mo). Les jobs sont désormais fixés à `ubuntu-24.04`, plateforme déclarée officiellement prise en charge dans Playwright 1.64.0 installé. Les étapes lint, tests et build restent obligatoires.
