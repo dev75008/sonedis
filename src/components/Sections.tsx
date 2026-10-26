@@ -5,14 +5,8 @@ import { basePath, formatTelHref, validateContactForm } from '../utils/site'
 import { galleryItems, galleryFile, type Product, productFile } from '../data'
 import { Flip, gsap, useGSAP } from '../app/motion'
 
-export function SectionLabel({ number, children }: { number: string; children: ReactNode }) {
-  return (
-    <div className="section-label">
-      <span>{number}</span>
-      <span className="section-label__rule" />
-      <span>{children}</span>
-    </div>
-  )
+export function SectionLabel({ children }: { number: string; children: ReactNode }) {
+  return <div className="section-label">{children}</div>
 }
 
 export function ActionLink({

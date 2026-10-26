@@ -44,3 +44,24 @@ Aucun score Lighthouse n’est communiqué : il n’a pas été mesuré sur un a
 - Le service de formulaire et son endpoint doivent être configurés; aucun message ne sera transmis tant que `VITE_FORM_ENDPOINT` ou `VITE_WEB3FORMS_KEY` n’est pas fourni.
 - Les traductions anglaises nouvelles, les pages légales et les droits de reproduction des logos tiers nécessitent la validation SONEDIS.
 - Le lien WhatsApp et le domaine personnalisé restent à confirmer; GitHub Pages sert le site sous le chemin du dépôt.
+
+## Finition graphique — 26 octobre 2026
+
+- Accueil : titre élargi (deux lignes sur la capture bureau à 1440 px), sous-titre de production lisible et navigation avec action de contact identifiable.
+- Produits : photographies et packagings séparés du texte; suppression des index décoratifs sur les deux cartes. Liens de détail conservés.
+- Racines : titre sur toute la largeur, portrait entier aux angles arrondis, aligné avec le début du texte. Texte factuel conservé.
+- Formulaire : surface claire arrondie, coordonnées agrandies, contrôles de langue et menu d’au moins 44 px.
+- Typographie commune Amiri/Manrope et tailles des titres et paragraphes de référence conservées. Petits textes portés à 13 px minimum.
+- Transition de page : rendu statique si `prefers-reduced-motion: reduce`; les deux vidéos restent automatiques conformément à la demande SONEDIS.
+
+### Preuves locales
+
+- `npm run lint`, `npm test` (3 tests) et `npm run build` : réussis.
+- Suite navigateur initiale : les 12 tests Chromium réussissent; WebKit présente trois échecs (chargement/navigation sous charge et contraste pendant la transition). Après correction du mode réduit, les trois tests concernés passent à la relance ciblée WebKit. Les résultats initiaux ne sont pas assimilés à une suite entièrement réussie.
+- Inspecteur de rendu : accueil à 1440, 768 et 390 px, aucun débordement horizontal, aucune image cassée et aucune erreur console détectée. Captures de l’accueil, des produits, du portrait et du contact effectivement examinées.
+- Le détecteur Impeccable signale la présence de Fraunces comme police courante dans son catalogue; elle reste un fallback existant, Amiri étant la police affichée.
+- L’inspecteur de goût signale encore des choix esthétiques de l’identité demandée : palette crème, arcades, calligraphie décorative, titres sur plusieurs lignes en mobile, filets et labels. Son signal « texte recouvert » concerne les liens du menu mobile fermé, volontairement masqué. Ces alertes ne constituent pas un verdict de conformité.
+
+### Limites
+
+Pas de nouvelle mesure Lighthouse, de certification WCAG, ni de test sur téléphone physique ou Safari natif. Les avertissements Vite sur les chemins de polices publiques préexistent; les polices chargées sont vérifiées dans le navigateur. La configuration d’envoi du formulaire et la validation éditoriale EN/légale restent requises.

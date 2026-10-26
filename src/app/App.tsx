@@ -116,6 +116,7 @@ function PageTransition({ children }: { children: ReactNode }) {
   const page = useRef<HTMLDivElement>(null)
   useGSAP(
     () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
       gsap.fromTo(
         page.current,
         { y: 10, autoAlpha: 0.7 },

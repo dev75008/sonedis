@@ -133,8 +133,8 @@ export default function HomePage() {
       <main id="main-content">
         <section className="hero-home" ref={hero} id="top">
           <div className="hero-home__copy" ref={copy}>
-            <p className="hero-home__label">{t('hero.label')}</p>
             <h1 ref={title}>{t('hero.title')}</h1>
+            <p className="hero-home__label">{t('hero.label')}</p>
             <p className="hero-home__intro">{t('hero.intro')}</p>
           </div>
           <div className="hero-home__visual" aria-hidden="true">
@@ -276,7 +276,6 @@ export default function HomePage() {
               <span className="feature-product__image">
                 <img src={`${basePath}/assets/photos/dattes-origine-960.webp`} alt="" loading="lazy" />
               </span>
-              <span className="feature-product__index">01 / 02</span>
               <span className="feature-product__copy">
                 <h3>{t('products.dates')}</h3>
                 <p>{t('products.dateCard')}</p>
@@ -295,7 +294,6 @@ export default function HomePage() {
               <span className="feature-product__image">
                 <img src={`${basePath}/assets/products/Sachet_pistaches-900.webp`} alt="" loading="lazy" />
               </span>
-              <span className="feature-product__index">02 / 02</span>
               <span className="feature-product__copy">
                 <h3>{t('products.nuts')}</h3>
                 <p>{t('products.nutsCard')}</p>

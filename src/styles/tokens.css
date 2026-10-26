@@ -57,7 +57,7 @@
 
   --font-display: 'Amiri', 'Fraunces', Georgia, serif;
   --font-body: 'Manrope', Arial, sans-serif;
-  --text-xs: clamp(0.69rem, 0.65rem + 0.15vw, 0.78rem);
+  --text-xs: clamp(0.8125rem, 0.78rem + 0.15vw, 0.875rem);
   --text-sm: clamp(0.82rem, 0.78rem + 0.2vw, 0.94rem);
   --text-md: clamp(1rem, 0.95rem + 0.25vw, 1.14rem);
   --text-lg: clamp(1.25rem, 1.12rem + 0.6vw, 1.65rem);
@@ -85,4 +85,12 @@
   --ease-in-out: cubic-bezier(0.87, 0, 0.13, 1);
   --content-width: 1440px;
   --page-gutter: clamp(1.25rem, 5vw, 5rem);
+  --section-title-size: clamp(2.5rem, 5.2vw, 5.8rem);
+  --section-copy-size: var(--text-lg);
+}
+
+@media (max-width: 780px) {
+  :root {
+    --section-title-size: clamp(2.6rem, 10vw, 4.8rem);
+  }
 }

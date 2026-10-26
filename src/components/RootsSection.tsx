@@ -4,6 +4,9 @@ import styles from './RootsSection.module.css'
 export default function RootsSection() {
   return (
     <section className={`${styles.section} section-pad`} aria-labelledby="roots-title" id="nos-racines">
+      <h2 id="roots-title" className={styles.heading}>
+        Nos racines, au cœur des palmeraies.
+      </h2>
       <figure className={styles.portrait}>
         <img
           src={`${basePath}/assets/photos/recolte-960.webp`}
@@ -18,8 +21,6 @@ export default function RootsSection() {
         <figcaption>La terre en héritage. La passion en partage.</figcaption>
       </figure>
       <div className={styles.copy}>
-        <p className={styles.eyebrow}>Une famille · Des terroirs · Un savoir-faire</p>
-        <h2 id="roots-title">Nos racines, au cœur des palmeraies.</h2>
         <p className={styles.lead}>
           À Tolga, El Grous et Foughala, notre histoire familiale prend racine au milieu des palmiers.
         </p>
